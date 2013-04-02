@@ -13,9 +13,6 @@ import javazoom.jl.decoder.Equalizer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
 
-
-
-
 public class PanelLecteurMP3 extends JPanel {
 	private LillePlayer player;
 	private String currentPath;
@@ -23,7 +20,7 @@ public class PanelLecteurMP3 extends JPanel {
 	private int state;  //0:stop, 1:load, 2:play
 	private float volume = 1;
 	private int position = 0;
-
+	JPanel panelEcouteCourante;
 	/**
 	 * 
 	 */
@@ -32,6 +29,7 @@ JButton play, avant, arriere;
 JSlider sliderLecture;
 	
 	public PanelLecteurMP3() {
+		panelEcouteCourante = new JPanel();
 		this.setLayout(new BorderLayout());
 		play = new JButton(">");
 		avant = new JButton("AV");
@@ -41,11 +39,14 @@ JSlider sliderLecture;
 		sliderLecture.setValue(0);
 
 		//Init de l'objet player
-		player = null;
+			player = null;
 		currentPath = "ressources/spititout.mp3";
 		state = 0;
 				
 		initHandler();
+		
+		panelEcouteCourante.add(sliderLecture);
+		
 		
 		this.add(play, BorderLayout.CENTER);
 		this.add(avant, BorderLayout.WEST);
