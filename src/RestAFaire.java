@@ -1,6 +1,9 @@
 
 public class RestAFaire {
-	//TODO lire, arrêter, mettre en pause un morceau de musique
+	//OK lire, arrêter, mettre en pause un morceau de musique
+	// modifier bouton lecture pause etc pour mettre une image à la place
+	// ajouter l'affichage de la lecture courante
+	
 	//TODO afficher titre, artiste, album
 	//TODO enchaîner la lecture des morceaux
 	//TODO trier les morceaux suivant différents critères (artiste, genre ...)

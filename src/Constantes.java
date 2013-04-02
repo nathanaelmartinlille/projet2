@@ -5,4 +5,5 @@ public class Constantes {
 	
 	public final static String PAUSE = "PAUSE";
 	
+	public final static String STOP = "STOP";
 }

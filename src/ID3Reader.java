@@ -16,10 +16,8 @@ public class ID3Reader {
 			try {
 				mp3file = new MP3File(sourcefile);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (TagException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}

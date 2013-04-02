@@ -16,7 +16,7 @@ import javazoom.jl.player.LillePlayer;
 public class PanelLecteurMP3 extends JPanel {
 	private LillePlayer player;
 	private String currentPath;
-	
+
 	private int state;  //0:stop, 1:load, 2:play
 	private float volume = 1;
 	private int position = 0;
@@ -25,29 +25,29 @@ public class PanelLecteurMP3 extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-JButton play, avant, arriere;
-JSlider sliderLecture;
-	
+	JButton play, avant, arriere;
+	JSlider sliderLecture;
+
 	public PanelLecteurMP3() {
 		panelEcouteCourante = new JPanel();
 		this.setLayout(new BorderLayout());
 		play = new JButton(">");
 		avant = new JButton("AV");
 		arriere = new JButton("AR");
-	
+
 		sliderLecture = new JSlider();
 		sliderLecture.setValue(0);
 
 		//Init de l'objet player
-			player = null;
+		player = null;
 		currentPath = "ressources/spititout.mp3";
 		state = 0;
-				
+
 		initHandler();
-		
+
 		panelEcouteCourante.add(sliderLecture);
-		
-		
+
+
 		this.add(play, BorderLayout.CENTER);
 		this.add(avant, BorderLayout.WEST);
 		this.add(arriere, BorderLayout.EAST);
@@ -57,32 +57,32 @@ JSlider sliderLecture;
 
 	private void initHandler() {
 		play.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				playPause();
 				if(Constantes.PAUSE.equals(play.getText())){
 					play.setText(Constantes.LECTURE);
-					
+
 				}else{
 					play.setText(Constantes.PAUSE);
 				}
 			}
 		});
-		
+
 		sliderLecture.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				player.setPosition(player.getDuration() * sliderLecture.getValue() /100);
 			}
 		});
 	}
-	
+
 	public void load(String path){
 		if(state != 0)
 			stop();
-		
+
 		try{
 			currentPath = path;
 			player = new LillePlayer(currentPath);
@@ -102,7 +102,7 @@ JSlider sliderLecture;
 	}
 
 	public void playPause(){
-		
+
 		if(state == 0){
 			load(currentPath);
 			playPause();
@@ -116,37 +116,37 @@ JSlider sliderLecture;
 			stop();
 		}
 	}
-	
+
 	public void stop(){			
 		if(state == 1 || state == 2){
 			player.close();
 			state = 0;
 		}
 	}
-	
+
 	public float getVolume(){
 		return volume;
 	}
-	
+
 	public void setVolume(float level){
 		volume = level;
 		player.setVolume(level);
 	}
-	
+
 	public int getDuration(){
 		if(player == null)
 			return 0;
 		return player.getDuration();
 	}
-	
+
 	public LillePlayer getMediaPlayer(){
 		return player;
 	}
-	
+
 	public int getPosition(){
 		return position;
 	}
-	
+
 	public void setPosition(int pos){
 		player.setPosition(pos);
 		position = pos;
@@ -161,21 +161,21 @@ JSlider sliderLecture;
 				System.out.println("LaunchEvent");
 				PlayThread pt = new PlayThread();
 				pt.start();
-				
+
 				while(!playerInterne.isComplete()){
 					position = playerInterne.getPosition();
 					if(player == playerInterne){
 						float pourcentageAvancement = ((float) position / (float) playerInterne.getDuration()) *100;
 						sliderLecture.setValue((int)pourcentageAvancement);
 						System.out.println("PositionEvent avec position = " + position + "pourcentage = " +pourcentageAvancement); 
-						
+
 					}
-						
+
 					try{
 						Thread.sleep(200);
 					}catch(Exception e){ e.printStackTrace(); }
 				}
-				
+
 				if(player == playerInterne)
 					System.out.println("EndEvent");
 			}catch(Exception e){ e.printStackTrace(); }
@@ -188,6 +188,6 @@ JSlider sliderLecture;
 				}catch(JavaLayerException e){ e.printStackTrace(); }
 			}
 		}		
-		
+
 	}
 }
