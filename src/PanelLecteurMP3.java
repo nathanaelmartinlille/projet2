@@ -64,11 +64,9 @@ public class PanelLecteurMP3 extends JPanel {
 				playPause();
 				if(Constantes.PAUSE.equals(play.getText())){
 					play.setText(Constantes.LECTURE);
-					player.pause();
 
 				}else{
 					play.setText(Constantes.PAUSE);
-					player.pause();
 				}
 			}
 		});
@@ -117,7 +115,7 @@ public class PanelLecteurMP3 extends JPanel {
 			break;
 		case 2:
 			System.out.println("pause");
-			//player.pause();
+			player.pause();
 			System.out.println("je suis en pause");
 			break;
 
@@ -177,7 +175,7 @@ public class PanelLecteurMP3 extends JPanel {
 					if(player == playerInterne){
 						float pourcentageAvancement = ((float) position / (float) playerInterne.getDuration()) *100;
 						sliderLecture.setValue((int)pourcentageAvancement);
-						//System.out.println("PositionEvent avec position = " + position + "pourcentage = " +pourcentageAvancement); 
+						System.out.println("PositionEvent avec position = " + position + "pourcentage = " +pourcentageAvancement); 
 
 					}
 
