@@ -4,6 +4,7 @@ public class RestAFaire {
 	// modifier bouton lecture pause etc pour mettre une image à la place
 	// ajouter l'affichage de la lecture courante
 	
+	//TODO lire la BDD
 	//TODO afficher titre, artiste, album
 	//TODO enchaîner la lecture des morceaux
 	//TODO trier les morceaux suivant différents critères (artiste, genre ...)

@@ -32,6 +32,7 @@ public class PanelLecteurMP3 extends JPanel {
 		panelEcouteCourante = new JPanel();
 		this.setLayout(new BorderLayout());
 		play = new JButton(">");
+
 		avant = new JButton("AV");
 		arriere = new JButton("AR");
 
@@ -40,7 +41,7 @@ public class PanelLecteurMP3 extends JPanel {
 
 		//Init de l'objet player
 		player = null;
-		currentPath = "ressources/spititout.mp3";
+		currentPath = "ressources/Musiques/backtoblack.mp3";
 		state = 0;
 
 		initHandler();
@@ -63,9 +64,11 @@ public class PanelLecteurMP3 extends JPanel {
 				playPause();
 				if(Constantes.PAUSE.equals(play.getText())){
 					play.setText(Constantes.LECTURE);
+					player.pause();
 
 				}else{
 					play.setText(Constantes.PAUSE);
+					player.pause();
 				}
 			}
 		});
@@ -102,18 +105,25 @@ public class PanelLecteurMP3 extends JPanel {
 	}
 
 	public void playPause(){
-
-		if(state == 0){
+		switch (state) {
+		case 0:
 			load(currentPath);
 			playPause();
-		}else if(state == 1){
+			break;
+		case 1:
 			LaunchListenThread llt = new LaunchListenThread(player);
 			llt.start();
 			state = 2;
-		}else if(state == 2){
-			player.pause();
-		}else{
+			break;
+		case 2:
+			System.out.println("pause");
+			//player.pause();
+			System.out.println("je suis en pause");
+			break;
+
+		default:
 			stop();
+			break;
 		}
 	}
 
@@ -167,7 +177,7 @@ public class PanelLecteurMP3 extends JPanel {
 					if(player == playerInterne){
 						float pourcentageAvancement = ((float) position / (float) playerInterne.getDuration()) *100;
 						sliderLecture.setValue((int)pourcentageAvancement);
-						System.out.println("PositionEvent avec position = " + position + "pourcentage = " +pourcentageAvancement); 
+						//System.out.println("PositionEvent avec position = " + position + "pourcentage = " +pourcentageAvancement); 
 
 					}
 
