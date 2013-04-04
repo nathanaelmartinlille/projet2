@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 public class FenetrePrincipale {
 
 	private JFrame frameFenetrePrincipale; 
+	private LecteurMP3Vue vueLecteurMP3;
 	private PanelLecteurMP3 lecteurMP3;
 	private PanelRecherche rechercheDynamique;
 	private PanelMusiques tableMusiques;
@@ -19,6 +20,9 @@ public class FenetrePrincipale {
 
 
 	private void initComposant() {
+		LecteurMP3Controlleur controlleur = new LecteurMP3Controlleur();
+		this.vueLecteurMP3 = controlleur.vue;
+		
 		lecteurMP3 = new PanelLecteurMP3();
 		rechercheDynamique = new PanelRecherche();
 		tableMusiques = new PanelMusiques();
@@ -28,7 +32,7 @@ public class FenetrePrincipale {
 	private void initFenetre() {
 		frameFenetrePrincipale = new JFrame();
 		frameFenetrePrincipale.add(rechercheDynamique);
-		frameFenetrePrincipale.add(lecteurMP3);
+		frameFenetrePrincipale.add(vueLecteurMP3);
 		frameFenetrePrincipale.add(tableMusiques);
 		frameFenetrePrincipale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameFenetrePrincipale.setSize(900, 500);

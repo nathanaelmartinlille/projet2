@@ -8,6 +8,7 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="ressources/jid3lib-0.5.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="ressources/jl1.0.1.modified.jar"/>
-	<classpathentry kind="lib" path="/Users/utilisateur/Downloads/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/utilisateur/Downloads/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="ressources/id3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
