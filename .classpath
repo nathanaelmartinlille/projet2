@@ -5,6 +5,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="projet2/ressources"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="LecteurMP3"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="ressources/jid3lib-0.5.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="ressources/jl1.0.1.modified.jar"/>
