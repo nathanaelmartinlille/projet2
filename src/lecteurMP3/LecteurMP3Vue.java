@@ -1,3 +1,5 @@
+package lecteurMP3;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import partage.Constantes;
 
 import javazoom.jl.decoder.JavaLayerException;
 
@@ -46,7 +50,7 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 	private void initPanelLectureCourante() {
 		panelEcouteCourante = new JPanel();
 		panelEcouteCourante.setLayout(new GridLayout(2, 1));
-		// init du slider de 0 ˆ 100
+		// init du slider de 0 ï¿½ 100
 		sliderLecture = new JSlider();
 		sliderLecture.setValue(0);
 		

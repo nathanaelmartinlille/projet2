@@ -1,16 +1,17 @@
+package lecteurMP3;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
 
 
 public class LecteurMP3Controlleur {
 
-	LecteurMP3Vue vue;
+	private LecteurMP3Vue vue;
 	LecteurMP3Modele modele;
 	
 	public LecteurMP3Controlleur() {
-		this.vue = new LecteurMP3Vue(this);
+		this.setVue(new LecteurMP3Vue(this));
 		this.modele = new LecteurMP3Modele();
-		modele.addObserver(vue);
+		modele.addObserver(getVue());
 	}
 	
 	public void demandeDeMiseAJour(){
@@ -34,6 +35,14 @@ public class LecteurMP3Controlleur {
 	}
 	public void setStatus(int status){
 		modele.setStatus(status);
+	}
+
+	public LecteurMP3Vue getVue() {
+		return vue;
+	}
+
+	public void setVue(LecteurMP3Vue vue) {
+		this.vue = vue;
 	}
 	
 	

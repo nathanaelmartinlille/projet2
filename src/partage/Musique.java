@@ -1,3 +1,4 @@
+package partage;
 public class Musique {
 
 	String titre, album, artiste, annee;

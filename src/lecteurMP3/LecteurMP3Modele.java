@@ -1,8 +1,11 @@
+package lecteurMP3;
 import java.util.Observable;
 
 import javazoom.jl.decoder.Equalizer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
+import partage.ID3Reader;
+import partage.Musique;
 
 // requete en base
 public class LecteurMP3Modele extends Observable {
@@ -19,7 +22,7 @@ public class LecteurMP3Modele extends Observable {
 		player = null;
 		currentPath = "ressources/Musiques/backtoblack.mp3";
 		ID3Reader id3Reader = new ID3Reader(currentPath);
-		musiqueActuelle = new Musique(id3Reader.title, id3Reader.album, id3Reader.artist, id3Reader.year);
+		musiqueActuelle = new Musique(id3Reader.getTitle(), id3Reader.getAlbum(), id3Reader.getArtist(), id3Reader.getYear());
 		state = 0;
 	}
 

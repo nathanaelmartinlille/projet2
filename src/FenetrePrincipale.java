@@ -3,13 +3,15 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
+import lecteurMP3.LecteurMP3Controlleur;
+import lecteurMP3.LecteurMP3Vue;
+
 /* Test github */
 
 public class FenetrePrincipale {
 
 	private JFrame frameFenetrePrincipale; 
 	private LecteurMP3Vue vueLecteurMP3;
-	private PanelLecteurMP3 lecteurMP3;
 	private PanelRecherche rechercheDynamique;
 	private PanelMusiques tableMusiques;
 
@@ -21,9 +23,8 @@ public class FenetrePrincipale {
 
 	private void initComposant() {
 		LecteurMP3Controlleur controlleur = new LecteurMP3Controlleur();
-		this.vueLecteurMP3 = controlleur.vue;
+		this.vueLecteurMP3 = controlleur.getVue();
 		
-		lecteurMP3 = new PanelLecteurMP3();
 		rechercheDynamique = new PanelRecherche();
 		tableMusiques = new PanelMusiques();
 	}
