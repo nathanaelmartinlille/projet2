@@ -77,6 +77,7 @@ public class RechercheVue extends JPanel implements Observer {
 		sorter = new TableRowSorter<TableModel>(tableRecherche.getModel());   
 		tableRecherche.setRowSorter(sorter);
 
+		
 		JScrollPane scrollRecherche= new JScrollPane(tableRecherche);
 		scrollRecherche.setMinimumSize(new Dimension(800,100));
 		scrollRecherche.setMaximumSize(new Dimension(800, 100));
