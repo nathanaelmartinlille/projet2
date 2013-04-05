@@ -108,8 +108,7 @@ public class LecteurMP3Modele extends Observable {
 					position = playerInterne.getPosition();
 					if(player == playerInterne){
 						setChanged();
-						float pourcentageAvancement = ((float) position / (float) playerInterne.getDuration()) *100;
-						notifyObservers(pourcentageAvancement);
+						notifyObservers();
 					}
 
 					try{
