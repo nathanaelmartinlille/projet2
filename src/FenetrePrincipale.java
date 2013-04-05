@@ -13,8 +13,7 @@ public class FenetrePrincipale {
 	private JFrame frameFenetrePrincipale; 
 	private LecteurMP3Vue vueLecteurMP3;
 	private RechercheVue vueRecherche;
-	private PanelRecherche rechercheDynamique;
-	private PanelMusiques tableMusiques;
+	private ListeMusiquesVue vueListeMusiques;
 
 	public FenetrePrincipale() {
 		initComposant();
@@ -27,9 +26,8 @@ public class FenetrePrincipale {
 		this.vueLecteurMP3 = controlleur.getVue();
 		RechercheControlleur controlleurRecherche = new RechercheControlleur();
 		this.vueRecherche = controlleurRecherche.vue;
-		
-		rechercheDynamique = new PanelRecherche();
-		tableMusiques = new PanelMusiques();
+		ListeMusiquesControlleur controlleurListeMusiques = new ListeMusiquesControlleur();
+		this.vueListeMusiques = controlleurListeMusiques.vue;
 	}
 
 
@@ -37,7 +35,7 @@ public class FenetrePrincipale {
 		frameFenetrePrincipale = new JFrame();
 		frameFenetrePrincipale.add(vueRecherche);
 		frameFenetrePrincipale.add(vueLecteurMP3);
-		frameFenetrePrincipale.add(tableMusiques);
+		frameFenetrePrincipale.add(vueListeMusiques);
 		frameFenetrePrincipale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameFenetrePrincipale.setSize(900, 500);
 		frameFenetrePrincipale.setMinimumSize(new Dimension(100,100));
