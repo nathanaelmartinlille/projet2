@@ -5,9 +5,9 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="projet2/ressources"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="ressources/jl1.0.1.modified.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/Home"/>
 	<classpathentry exported="true" kind="lib" path="ressources/id3.jar"/>
-	<classpathentry kind="lib" path="ressources/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="ressources/jl1.0.1.modified.jar"/>
+	<classpathentry exported="true" kind="lib" path="ressources/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
