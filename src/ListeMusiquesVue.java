@@ -83,6 +83,8 @@ public class ListeMusiquesVue extends JPanel implements Observer {
 			this.table = table;
 		}
 
+		
+		
 		public boolean canImport(TransferHandler.TransferSupport info) {
 			if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 				return false;
