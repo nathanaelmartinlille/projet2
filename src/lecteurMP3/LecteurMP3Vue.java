@@ -39,17 +39,22 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 
 	public LecteurMP3Vue(LecteurMP3Controlleur controlleur) {
 		this.controlleur = controlleur;
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(2, 1));
 		initComposantPrincipaux();
 		initPanelLectureCourante();
 		initHandler();
-
-		this.add(play, BorderLayout.CENTER);
-		this.add(avant, BorderLayout.EAST);
-		this.add(arriere, BorderLayout.WEST);
-		this.add(panelEcouteCourante, BorderLayout.SOUTH);
-
-
+		JPanel boutonsLecture = new JPanel();
+		boutonsLecture.setSize(100, 40);
+		GridLayout gl = new GridLayout(1, 3);
+        gl.setHgap(5); // 5 pixels d'espace entre les colonnes (H comme Horizontal)
+        gl.setVgap(5); // 5 pixels d'espace entre les lignes (V comme Vertical)
+        boutonsLecture.setLayout(gl);
+        
+		boutonsLecture.add(arriere);
+		boutonsLecture.add(play);
+		boutonsLecture.add(avant);
+		this.add(boutonsLecture);
+		this.add(panelEcouteCourante);
 	}
 
 	private void initPanelLectureCourante() {

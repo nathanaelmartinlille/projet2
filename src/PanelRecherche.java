@@ -1,5 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -39,7 +36,7 @@ public class PanelRecherche extends JPanel {
 	private Timer timer;
 	private TimerTask taskChercher;
 
-	// Pour les rŽsultats de la recherche
+	// Pour les rï¿½sultats de la recherche
 	String[][] resultatsRecherche;
 	JTable tableRecherche;
 
@@ -77,7 +74,7 @@ public class PanelRecherche extends JPanel {
 		tableRecherche =  new JTable(new TablePerso());
 		tableRecherche.setDragEnabled(false);
 		//tableRecherche.setTransferHandler(new TransferHandlerPerso(tableMorceaux));
-		tableRecherche.setBackground(new Color(253, 45, 155));
+//		tableRecherche.setBackground(new Color(253, 45, 155));
 		
 		JPanel panelTable = new JPanel();
 		tableRecherche.setFillsViewportHeight(true);
@@ -178,7 +175,7 @@ public class PanelRecherche extends JPanel {
 
 
 
-	// Pour faire la recherche sur la base de donnŽes : 
+	// Pour faire la recherche sur la base de donnï¿½es : 
 	public String[][] trouverBDD()
 	{
 		String[][] tableau = null;
@@ -241,7 +238,7 @@ public class PanelRecherche extends JPanel {
 
 
 
-	// Table PersonnalisŽe
+	// Table Personnalisï¿½e
 
 	public class TablePerso extends AbstractTableModel {
 		/**
@@ -291,13 +288,13 @@ public class PanelRecherche extends JPanel {
 		private void initTable()
 		{
 			nomsColonnes = new String[7];
-			nomsColonnes[0] = "NumŽro";
+			nomsColonnes[0] = "Numï¿½ro";
 			nomsColonnes[1] = "Artiste";
 			nomsColonnes[2] = "Titre";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "AnnŽe";
-			nomsColonnes[6] = "DurŽe";
+			nomsColonnes[5] = "Annï¿½e";
+			nomsColonnes[6] = "Durï¿½e";
 
 			donnees = resultatsRecherche;
 

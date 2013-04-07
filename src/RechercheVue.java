@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -34,7 +32,7 @@ public class RechercheVue extends JPanel implements Observer {
 	private Timer timer;
 	private TimerTask taskChercher;
 	
-	// Pour les rŽsultats de la recherche
+	// Pour les rï¿½sultats de la recherche
 		
 		JTable tableRecherche;
 		TableRowSorter<TableModel> sorter;
@@ -69,7 +67,7 @@ public class RechercheVue extends JPanel implements Observer {
 		tableRecherche =  new JTable(new TablePerso());
 		tableRecherche.setDragEnabled(false);
 		//tableRecherche.setTransferHandler(new TransferHandlerPerso(tableMorceaux));
-		tableRecherche.setBackground(new Color(253, 45, 155));
+//		tableRecherche.setBackground(new Color(253, 45, 155));
 		
 		JPanel panelTable = new JPanel();
 		tableRecherche.setFillsViewportHeight(true);
@@ -208,13 +206,13 @@ public class RechercheVue extends JPanel implements Observer {
 		private void initTable()
 		{
 			nomsColonnes = new String[7];
-			nomsColonnes[0] = "NumŽro";
+			nomsColonnes[0] = "Numï¿½ro";
 			nomsColonnes[1] = "Titre";
 			nomsColonnes[2] = "Artiste";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "AnnŽe";
-			nomsColonnes[6] = "DurŽe";
+			nomsColonnes[5] = "Annï¿½e";
+			nomsColonnes[6] = "Durï¿½e";
 
 			donnees = controlleur.avoirResultatsRecherche();
 

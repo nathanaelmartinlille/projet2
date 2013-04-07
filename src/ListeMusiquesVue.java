@@ -1,5 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 
 
@@ -43,7 +39,7 @@ public class ListeMusiquesVue extends JPanel implements Observer {
 		GridBagConstraints c = new GridBagConstraints();
 		
 		tableMorceaux.setDragEnabled(true);
-		tableMorceaux.setBackground(new Color(253, 45, 155));	
+//		tableMorceaux.setBackground(new Color(253, 45, 155));	
 		JPanel panelTable = new JPanel();
 		tableMorceaux.setFillsViewportHeight(true);
 		tableMorceaux.setAutoCreateRowSorter(true);
@@ -120,7 +116,7 @@ public class ListeMusiquesVue extends JPanel implements Observer {
 
 	}
 
-	// Table PersonnalisŽe
+	// Table Personnalisï¿½e
 
 	public class TablePerso extends AbstractTableModel {
 		/**
@@ -170,13 +166,13 @@ public class ListeMusiquesVue extends JPanel implements Observer {
 		private void initTable()
 		{
 			nomsColonnes = new String[7];
-			nomsColonnes[0] = "NumŽro";
+			nomsColonnes[0] = "Numï¿½ro";
 			nomsColonnes[1] = "Artiste";
 			nomsColonnes[2] = "Titre";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "AnnŽe";
-			nomsColonnes[6] = "DurŽe";
+			nomsColonnes[5] = "Annï¿½e";
+			nomsColonnes[6] = "Durï¿½e";
 
 			donnees = new String[2][7];
 			donnees[0][0] = "0";

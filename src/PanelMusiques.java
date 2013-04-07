@@ -1,12 +1,10 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -36,7 +34,7 @@ public class PanelMusiques extends JPanel {
 		tableMorceaux.setMinimumSize(new Dimension(700,200));
 		tableMorceaux.setMaximumSize(new Dimension(700, 200));
 		tableMorceaux.setPreferredSize(new Dimension(700, 200));
-		tableMorceaux.setBackground(new Color(12, 45, 155));
+//		tableMorceaux.setBackground(new Color(12, 45, 155));
 		this.add(new JScrollPane(tableMorceaux), BorderLayout.CENTER);
 		this.add(tableMorceaux.getTableHeader(), BorderLayout.NORTH);
 		//this.add(tableMorceaux, BorderLayout.CENTER);
@@ -94,7 +92,7 @@ public class PanelMusiques extends JPanel {
 	}
 	
 	
-	// Table PersonnalisŽe
+	// Table Personnalisï¿½e
 	
 	public class TablePerso extends AbstractTableModel {
 		 /**
@@ -144,13 +142,13 @@ public class PanelMusiques extends JPanel {
 	    private void initTable()
 		{
 			nomsColonnes = new String[7];
-			nomsColonnes[0] = "NumŽro";
+			nomsColonnes[0] = "Numï¿½ro";
 			nomsColonnes[1] = "Artiste";
 			nomsColonnes[2] = "Titre";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "AnnŽe";
-			nomsColonnes[6] = "DurŽe";
+			nomsColonnes[5] = "Annï¿½e";
+			nomsColonnes[6] = "Durï¿½e";
 
 			donnees = new String[2][7];
 			donnees[0][0] = "0";
