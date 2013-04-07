@@ -1,6 +1,6 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,11 +11,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -43,24 +45,15 @@ public class RechercheVue extends JPanel implements Observer {
 		this.controlleur = controlleur;
 		
 		boutonRecherche = new JButton("Chercher");
-		texteRecherche = new JTextField(50);
+		texteRecherche = new JTextField(30);
 
 		initHandler();
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.75;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
-		this.add(texteRecherche, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.25;
-		c.gridx = 1;
-		c.gridwidth = 2;
-		c.gridy = 0;
-		this.add(boutonRecherche, c);
-
+		JPanel panelRecherche = new JPanel();
+		panelRecherche.setLayout(new GridLayout(1, 2));
+		panelRecherche.add(texteRecherche);
+		panelRecherche.add(boutonRecherche);
+		this.setLayout(new BorderLayout());
+		this.add(panelRecherche, BorderLayout.NORTH);
 		
 		
 
@@ -86,13 +79,10 @@ public class RechercheVue extends JPanel implements Observer {
 		//panelTable.add(tableRecherche.getTableHeader(), BorderLayout.NORTH);
 		
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 40;      //make this component tall
-		c.weightx = 1.0;
-		c.gridwidth = 5;
-		c.gridx = 0;
-		c.gridy = 1;
-		this.add(panelTable, c);
+		this.add(panelTable, BorderLayout.CENTER);
+		JLabel labelAide = new JLabel("double cliquez sur une musique pour l'ajouter à la liste ou bien glissez la");
+		labelAide.setHorizontalAlignment(SwingConstants.CENTER);
+		this.add(labelAide, BorderLayout.SOUTH);
 		
 	}
 	
@@ -138,14 +128,10 @@ public class RechercheVue extends JPanel implements Observer {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 	}
