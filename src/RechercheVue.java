@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -33,17 +35,17 @@ public class RechercheVue extends JPanel implements Observer {
 	private JTextField texteRecherche;
 	private Timer timer;
 	private TimerTask taskChercher;
-	
-	// Pour les r�sultats de la recherche
-		
-		JTable tableRecherche;
-		TableRowSorter<TableModel> sorter;
 
-		
+	// Pour les r�sultats de la recherche
+
+	JTable tableRecherche;
+	TableRowSorter<TableModel> sorter;
+
+
 
 	public RechercheVue(RechercheControlleur controlleur) {
 		this.controlleur = controlleur;
-		
+
 		boutonRecherche = new JButton("Chercher");
 		texteRecherche = new JTextField(30);
 
@@ -54,21 +56,21 @@ public class RechercheVue extends JPanel implements Observer {
 		panelRecherche.add(boutonRecherche);
 		this.setLayout(new BorderLayout());
 		this.add(panelRecherche, BorderLayout.NORTH);
-		
-		
+
+
 
 		tableRecherche =  new JTable(new TablePerso());
 		tableRecherche.setDragEnabled(false);
 		//tableRecherche.setTransferHandler(new TransferHandlerPerso(tableMorceaux));
-//		tableRecherche.setBackground(new Color(253, 45, 155));
-		
+		//		tableRecherche.setBackground(new Color(253, 45, 155));
+
 		JPanel panelTable = new JPanel();
 		tableRecherche.setFillsViewportHeight(true);
 		tableRecherche.setAutoCreateRowSorter(true);
 		sorter = new TableRowSorter<TableModel>(tableRecherche.getModel());   
 		tableRecherche.setRowSorter(sorter);
 
-		
+
 		JScrollPane scrollRecherche= new JScrollPane(tableRecherche);
 		scrollRecherche.setMinimumSize(new Dimension(800,100));
 		scrollRecherche.setMaximumSize(new Dimension(800, 100));
@@ -77,16 +79,16 @@ public class RechercheVue extends JPanel implements Observer {
 
 
 		//panelTable.add(tableRecherche.getTableHeader(), BorderLayout.NORTH);
-		
-		
+
+
 		this.add(panelTable, BorderLayout.CENTER);
 		JLabel labelAide = new JLabel("double cliquez sur une musique pour l'ajouter à la liste ou bien glissez la");
 		labelAide.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(labelAide, BorderLayout.SOUTH);
-		
+
 	}
-	
-	
+
+
 	// l'objet en parametre 
 	@Override
 	public void update(Observable o, Object avancement) {
@@ -94,7 +96,7 @@ public class RechercheVue extends JPanel implements Observer {
 		String regex = texteRecherche.getText();
 		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + regex, 1, 2, 3));
 	}
-	
+
 	private void initHandler() {
 		boutonRecherche.addActionListener(new ActionListener() {
 
@@ -135,11 +137,11 @@ public class RechercheVue extends JPanel implements Observer {
 			}
 		});
 	}
-	
-	
-	
-	
-	public class TablePerso extends AbstractTableModel {
+
+
+
+
+	public class TablePerso extends AbstractTableModel implements MouseListener{
 		/**
 		 * 
 		 */
@@ -149,9 +151,9 @@ public class RechercheVue extends JPanel implements Observer {
 
 		public TablePerso() {
 			super();
-
 			initTable();
 		}
+
 
 		public int getRowCount() {
 			return donnees.length;
@@ -166,7 +168,7 @@ public class RechercheVue extends JPanel implements Observer {
 		}
 
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			//System.out.println("j'appuie sur l'index : " +rowIndex);
+			System.out.println("j'appuie sur l'index : " +rowIndex);
 			return donnees[rowIndex][columnIndex];
 		}
 
@@ -179,7 +181,7 @@ public class RechercheVue extends JPanel implements Observer {
 			//donnees.remove(rowIndex);
 			fireTableRowsDeleted(rowIndex, rowIndex);
 		}
-		
+
 		public void actualiserTable()
 		{
 			fireTableDataChanged();
@@ -192,17 +194,47 @@ public class RechercheVue extends JPanel implements Observer {
 		private void initTable()
 		{
 			nomsColonnes = new String[7];
-			nomsColonnes[0] = "Num�ro";
+			nomsColonnes[0] = "Numéro";
 			nomsColonnes[1] = "Titre";
 			nomsColonnes[2] = "Artiste";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "Ann�e";
-			nomsColonnes[6] = "Dur�e";
+			nomsColonnes[5] = "Année";
+			nomsColonnes[6] = "Durée";
 
 			donnees = controlleur.avoirResultatsRecherche();
 
 		}
+
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			ajouterMusique();
+		}
+
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
 	}
-	
+
 }
