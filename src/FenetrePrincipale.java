@@ -13,7 +13,7 @@ public class FenetrePrincipale {
 	private JFrame frameFenetrePrincipale; 
 	private LecteurMP3Vue vueLecteurMP3;
 	private RechercheVue vueRecherche;
-	private ListeMusiquesVue vueListeMusiques;
+	private PlayListMusique vueListeMusiques;
 
 	public FenetrePrincipale() {
 		initComposant();
@@ -26,7 +26,7 @@ public class FenetrePrincipale {
 		this.vueLecteurMP3 = controlleur.getVue();
 		RechercheControlleur controlleurRecherche = new RechercheControlleur();
 		this.vueRecherche = controlleurRecherche.vue;
-		ListeMusiquesControlleur controlleurListeMusiques = new ListeMusiquesControlleur();
+		PlayListMusiquesControlleur controlleurListeMusiques = new PlayListMusiquesControlleur();
 		this.vueListeMusiques = controlleurListeMusiques.vue;
 	}
 

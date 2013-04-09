@@ -154,7 +154,6 @@ public class RechercheVue extends JPanel implements Observer {
 			initTable();
 		}
 
-
 		public int getRowCount() {
 			return donnees.length;
 		}
@@ -173,8 +172,7 @@ public class RechercheVue extends JPanel implements Observer {
 		}
 
 		public void ajouterMusique() {
-
-			//fireTableRowsInserted(amis.size() -1, amis.size() -1);
+			System.out.println("demande d'ajout de musique");
 		}
 
 		public void enleverMusique(int rowIndex) {
@@ -203,37 +201,27 @@ public class RechercheVue extends JPanel implements Observer {
 			nomsColonnes[6] = "Durée";
 
 			donnees = controlleur.avoirResultatsRecherche();
-
 		}
-
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			ajouterMusique();
 		}
 
-
 		@Override
 		public void mousePressed(MouseEvent e) {
 		}
-
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 		}
 
-
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
-
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
 	}
 

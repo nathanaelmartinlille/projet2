@@ -18,16 +18,16 @@ import javax.swing.table.AbstractTableModel;
 
 
 
-public class ListeMusiquesVue extends JPanel implements Observer {
+public class PlayListMusique extends JPanel implements Observer {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ListeMusiquesControlleur controlleur;
+	PlayListMusiquesControlleur controlleur;
 	private JTable tableMorceaux;
 
-	public ListeMusiquesVue(ListeMusiquesControlleur controlleur)
+	public PlayListMusique(PlayListMusiquesControlleur controlleur)
 	{
 		this.controlleur = controlleur;
 		tableMorceaux =  new JTable(new TablePerso());
