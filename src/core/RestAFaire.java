@@ -5,13 +5,17 @@ public class RestAFaire {
 	// modifier bouton lecture pause etc pour mettre une image à la place
 	// ajouter l'affichage de la lecture courante
 	
-	//TODO lire la BDD
-	//TODO afficher titre, artiste, album
+	
+	
+	
+	//OK lire la BDD
+	//OK afficher titre, artiste, album
 	//TODO enchaîner la lecture des morceaux
-	//TODO trier les morceaux suivant différents critères (artiste, genre ...)
+	//OK trier les morceaux suivant différents critères (artiste, genre ...)
 	//TODO afficher de manière optionnelle une vue sur les informations détaillées du morceau en cours de lecture
-	//TODO proposer une barre de recherche avec affichage dynamique des résultats
+	//OK proposer une barre de recherche avec affichage dynamique des résultats
 	//TODO ajout d’informations comme le nombre de lectures d’un morceau
 	//TODO proposer des fonctionnalités de lecture aléatoire avancée
 	//TODO optionnellement, créer/éditer des listes de lecture
+	//TODO faire des smartplaylist ( ajout d'un bouton LIRE TOUT qui permet de lire la liste de morceau qui ont été filtré lors de la recherche
 }
