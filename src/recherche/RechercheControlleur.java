@@ -1,16 +1,17 @@
+package recherche;
 import javax.swing.JTextField;
 
 
 public class RechercheControlleur {
 
-	RechercheVue vue;
+	private RechercheVue vue;
 	RechercheModele modele;
 	
 	public RechercheControlleur() {
 		
 		this.modele = new RechercheModele();
-		this.vue = new RechercheVue(this);
-		modele.addObserver(vue);
+		this.setVue(new RechercheVue(this));
+		modele.addObserver(getVue());
 	}
 	
 	public void demandeDeMiseAJour(){
@@ -26,6 +27,14 @@ public class RechercheControlleur {
 	public String[][] avoirResultatsRecherche()
 	{
 		return modele.resultatsRecherche;
+	}
+
+	public RechercheVue getVue() {
+		return vue;
+	}
+
+	public void setVue(RechercheVue vue) {
+		this.vue = vue;
 	}
 
 }

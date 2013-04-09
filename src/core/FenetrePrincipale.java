@@ -1,12 +1,16 @@
+package core;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
+import playlist.PlayListMusique;
+import playlist.PlayListMusiquesControlleur;
+import recherche.RechercheControlleur;
+import recherche.RechercheVue;
+
 import lecteurMP3.LecteurMP3Controlleur;
 import lecteurMP3.LecteurMP3Vue;
-
-/* Test github */
 
 public class FenetrePrincipale {
 
@@ -22,12 +26,12 @@ public class FenetrePrincipale {
 
 
 	private void initComposant() {
-		LecteurMP3Controlleur controlleur = new LecteurMP3Controlleur();
-		this.vueLecteurMP3 = controlleur.getVue();
+		LecteurMP3Controlleur controlleurLecteurMP3 = new LecteurMP3Controlleur();
+		this.vueLecteurMP3 = controlleurLecteurMP3.getVue();
 		RechercheControlleur controlleurRecherche = new RechercheControlleur();
-		this.vueRecherche = controlleurRecherche.vue;
+		this.vueRecherche = controlleurRecherche.getVue();
 		PlayListMusiquesControlleur controlleurListeMusiques = new PlayListMusiquesControlleur();
-		this.vueListeMusiques = controlleurListeMusiques.vue;
+		this.vueListeMusiques = controlleurListeMusiques.getVue();
 	}
 
 

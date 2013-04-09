@@ -1,6 +1,8 @@
+package playlist;
 import java.util.Observable;
 
-import partage.Musique;
+import core.Musique;
+
 
 
 public class PlayListMusiqueModele extends Observable {

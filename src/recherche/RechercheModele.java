@@ -1,3 +1,4 @@
+package recherche;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,7 +9,8 @@ import java.util.Observable;
 
 import javax.swing.JTextField;
 
-import partage.Musique;
+import core.Musique;
+
 
 
 
@@ -28,7 +30,7 @@ public class RechercheModele extends Observable {
 
 	public void chercher(JTextField texteAChercher)
 	{
-		// Pas besoin de cet algo car on fait dŽjˆ un filtre sur la vue
+		// Pas besoin de cet algo car on fait dï¿½jï¿½ un filtre sur la vue
 		/*System.out.println("texte iohoihuoi recherche : "+texteAChercher.getText());
 		//viderResultats();
 		int j = 0;
@@ -59,7 +61,7 @@ public class RechercheModele extends Observable {
 	
 
 
-	// Pour faire la recherche sur la base de donnŽes : 
+	// Pour faire la recherche sur la base de donnï¿½es : 
 	public String[][] trouverBDD()
 	{
 		String[][] tableau = null;

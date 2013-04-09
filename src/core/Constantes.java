@@ -1,4 +1,4 @@
-package partage;
+package core;
 
 public class Constantes {
 

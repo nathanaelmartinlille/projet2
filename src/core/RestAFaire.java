@@ -1,4 +1,4 @@
-package partage;
+package core;
 
 public class RestAFaire {
 	//OK lire, arrêter, mettre en pause un morceau de musique

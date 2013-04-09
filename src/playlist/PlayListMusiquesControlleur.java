@@ -1,19 +1,28 @@
+package playlist;
 
 
 public class PlayListMusiquesControlleur {
 
-	PlayListMusique vue;
+	private PlayListMusique vue;
 	PlayListMusiqueModele modele;
 	
 	public PlayListMusiquesControlleur() {
 		
 		this.modele = new PlayListMusiqueModele();
-		this.vue = new PlayListMusique(this);
-		modele.addObserver(vue);
+		this.setVue(new PlayListMusique(this));
+		modele.addObserver(getVue());
 	}
 	
 	public void demandeDeMiseAJour(){
 		modele.majModele(null);
+	}
+
+	public PlayListMusique getVue() {
+		return vue;
+	}
+
+	public void setVue(PlayListMusique vue) {
+		this.vue = vue;
 	}
 	
 }
