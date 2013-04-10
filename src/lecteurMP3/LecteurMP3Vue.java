@@ -1,6 +1,6 @@
 package lecteurMP3;
 
-import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,6 +29,7 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 	JSlider sliderLecture;
 	JPanel panelEcouteCourante;
 	JLabel ecouteActuelle;
+	JLabel tempsActuel;
 	boolean lectureEnCours = false;
 	ImageIcon imgPlay = new ImageIcon(getClass().getResource("/play.png"));
 	ImageIcon imgPause = new ImageIcon(getClass().getResource("/pause.png"));
@@ -45,10 +46,8 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 		initHandler();
 		JPanel boutonsLecture = new JPanel();
 		boutonsLecture.setSize(100, 40);
-		GridLayout gl = new GridLayout(1, 3);
-        gl.setHgap(5); // 5 pixels d'espace entre les colonnes (H comme Horizontal)
-        gl.setVgap(5); // 5 pixels d'espace entre les lignes (V comme Vertical)
-        boutonsLecture.setLayout(gl);
+		
+        boutonsLecture.setLayout(new FlowLayout());
         
 		boutonsLecture.add(arriere);
 		boutonsLecture.add(play);
@@ -61,13 +60,14 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 		panelEcouteCourante = new JPanel();
 		panelEcouteCourante.setLayout(new GridLayout(2, 1));
 		// init du slider de 0 � 100
-		sliderLecture = new JSlider();
+		sliderLecture = new JSlider(0, 1000);
 		sliderLecture.setValue(0);
 
 		ecouteActuelle = new JLabel();
 		ecouteActuelle.setText("aucune chanson en cours de lecture");
-		panelEcouteCourante.add(sliderLecture);
 		panelEcouteCourante.add(ecouteActuelle);
+		panelEcouteCourante.add(sliderLecture);
+		
 
 	}
 
@@ -123,7 +123,8 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				controlleur.setPosition(controlleur.getPlayer().getDuration() * sliderLecture.getValue() /100);
+				System.out.println("valeur voulu : " + sliderLecture.getValue());
+				controlleur.setPosition(controlleur.getPlayer().getDuration() * sliderLecture.getValue() /1000);
 			}
 		});
 	}
@@ -133,8 +134,8 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 		// on recupere l'observable qui est le lecteur MP3
 		LecteurMP3Modele lecteurMP3Modele = (LecteurMP3Modele) o;
 		// on va update les textfield avec le nom de la musique, ainsi que la position actuelle de la lecture
-		float pourcentageAvancement = ((float) lecteurMP3Modele.getPosition()/ (float) lecteurMP3Modele.getDuration()) *100;
-		sliderLecture.setValue((int) pourcentageAvancement);
+		float pourcentageAvancement = ((float) lecteurMP3Modele.getPosition() / (float) lecteurMP3Modele.getDuration()) *100;
+		sliderLecture.setValue((int) (pourcentageAvancement *10));
 		ecouteActuelle.setText("en ecoute : " + lecteurMP3Modele.musiqueActuelle.toString());
 		System.out.println("PositionEvent avec position en pourcent =" + pourcentageAvancement); 
 

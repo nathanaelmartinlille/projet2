@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Observable;
 
 import javax.swing.JTextField;
@@ -30,31 +29,6 @@ public class RechercheModele extends Observable {
 
 	public void chercher(JTextField texteAChercher)
 	{
-		// Pas besoin de cet algo car on fait d�j� un filtre sur la vue
-		/*System.out.println("texte iohoihuoi recherche : "+texteAChercher.getText());
-		//viderResultats();
-		int j = 0;
-		ArrayList<String[]> listeContenue = new ArrayList<String[]>();
-		
-		for(int i=0; i<tableauBDD.length; i++)
-		{
-			String[] uneMusique = tableauBDD[j];
-			if(uneMusique[1].contains(texteAChercher.getText()) && !listeContenue.contains(uneMusique)){
-				resultatsRecherche[j] = uneMusique;
-				listeContenue.add(uneMusique);
-				j++;
-			}
-			if(uneMusique[2].contains(texteAChercher.getText()) && !listeContenue.contains(uneMusique)){
-				resultatsRecherche[j] = uneMusique;
-				listeContenue.add(uneMusique);
-				j++;
-			}
-			if(uneMusique[3].contains(texteAChercher.getText()) && !listeContenue.contains(uneMusique)){
-				resultatsRecherche[j] = uneMusique;
-				listeContenue.add(uneMusique);
-				j++;
-			}
-		}*/
 		setChanged();
 		notifyObservers();
 	}
@@ -85,20 +59,17 @@ public class RechercheModele extends Observable {
 			{
 				j++;
 			}
-			tableau = new String[j][7];
+			tableau = new String[j][6];
 			int i = 1;
 			ResultSet rs = statement.executeQuery("select * from songs");
 			while(rs.next())
 			{
-				tableau[i-1][0] = ""+i;
-				tableau[i-1][1] = rs.getString("album");
-				tableau[i-1][2] = rs.getString("artist");
-				tableau[i-1][3] = rs.getString("title");
-				tableau[i-1][4] = rs.getString("genre");
-				tableau[i-1][5] = rs.getString("year");
-				tableau[i-1][6] = rs.getString("duration");
-				// read the result set
-				//System.out.println(i + " " + rs.getString("album") + " " + rs.getString("artist") + " " + rs.getString("title") + " " + rs.getString("genre") + " " + rs.getString("year") + " " + rs.getString("duration"));
+				tableau[i-1][0] = rs.getString("album");
+				tableau[i-1][1] = rs.getString("artist");
+				tableau[i-1][2] = rs.getString("title");
+				tableau[i-1][3] = rs.getString("genre");
+				tableau[i-1][4] = rs.getString("year");
+				tableau[i-1][5] = rs.getString("duration");
 				i++;
 			}
 		}

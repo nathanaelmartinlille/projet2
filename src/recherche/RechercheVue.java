@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -49,6 +51,7 @@ public class RechercheVue extends JPanel implements Observer {
 
 		boutonRecherche = new JButton("Chercher");
 		texteRecherche = new JTextField(30);
+		texteRecherche.setToolTipText("exemple: titre: friday album: fantasia");
 
 		initHandler();
 		JPanel panelRecherche = new JPanel();
@@ -93,9 +96,131 @@ public class RechercheVue extends JPanel implements Observer {
 	// l'objet en parametre 
 	@Override
 	public void update(Observable o, Object avancement) {
+		// le boolean pour savoir quelle type de recherche l'utilisateur souhaite
+		boolean rechercheArtiste = false;
+		boolean rechercheTitre = false;
+		boolean rechercheAlbum = false;
+		boolean rechercheGenre = false;
+		// true si on fait une recherche personnalisée (par album etc ... )
+		boolean recherchePersonnalisee = false;
+		String valeurRechercheGenre = null;
+		String valeurRechercheArtiste = null;
+		String valeurRechercheTitre = null;
+		String valeurRechercheAlbum = null;
+
+		// les differents filtres possible, dont chacun filtre sur une colonne
+		RowFilter<TableModel, Object> filtreArtiste = null;
+		RowFilter<TableModel, Object> filtreTitre = null;
+		RowFilter<TableModel, Object> filtreAlbum = null;
+		RowFilter<TableModel, Object> filtreGenre = null;
+		List<RowFilter<TableModel,Object>> ensembleFiltre = new ArrayList<RowFilter<TableModel,Object>>();
+		RowFilter<TableModel, Object> ensembleRowFilter = null;
+		
 		// On update la table
-		String regex = texteRecherche.getText();
-		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + regex, 1, 2, 3));
+		String valeurRecherche = texteRecherche.getText();
+		// on recherche les mots clés possible que l'utilisateur a pu taper
+		rechercheTitre = valeurRecherche.contains("titre");
+		rechercheAlbum = valeurRecherche.contains("album");
+		rechercheArtiste = valeurRecherche.contains("artiste");
+		rechercheGenre = valeurRecherche.contains("genre");
+		// ON PEUT FAIRE PLUS SIMPLE MAIS CEST LE SOIR LA FLEMME
+		//FIXME ajouter le delimiteur !!! 
+		// on va chercher quel mot clé a été utilisé par l'utilisateur
+		if(rechercheTitre){
+			recherchePersonnalisee = true;
+			valeurRechercheTitre = valeurRecherche.substring(valeurRecherche.indexOf("titre") + 6);
+			if( valeurRechercheTitre.indexOf("album") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheTitre = valeurRechercheTitre.substring(0, valeurRechercheTitre.indexOf("album"));
+			}
+			if( valeurRechercheTitre.indexOf("artiste") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheTitre = valeurRechercheTitre.substring(0, valeurRechercheTitre.indexOf("artiste"));
+			}
+			if( valeurRechercheTitre.indexOf("genre") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheTitre = valeurRechercheTitre.substring(0, valeurRechercheTitre.indexOf("genre"));
+			}
+		}
+
+		if(rechercheAlbum){
+			recherchePersonnalisee = true;
+			valeurRechercheAlbum = valeurRecherche.substring(valeurRecherche.indexOf("album") + 6);
+			if( valeurRechercheAlbum.indexOf("titre") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheAlbum = valeurRechercheAlbum.substring(0, valeurRechercheAlbum.indexOf("titre"));
+			}
+			if( valeurRechercheAlbum.indexOf("artiste") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheAlbum = valeurRechercheAlbum.substring(0, valeurRechercheAlbum.indexOf("artiste"));
+			}
+			if( valeurRechercheAlbum.indexOf("genre") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheAlbum = valeurRechercheAlbum.substring(0, valeurRechercheAlbum.indexOf("genre"));
+			}
+		}
+
+		if(rechercheArtiste){
+			recherchePersonnalisee = true;
+			valeurRechercheArtiste = valeurRecherche.substring(valeurRecherche.indexOf("artiste") + 6);
+			if( valeurRechercheArtiste.indexOf("titre") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheArtiste = valeurRechercheArtiste.substring(0, valeurRechercheArtiste.indexOf("titre"));
+			}
+			if( valeurRechercheArtiste.indexOf("album") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheArtiste = valeurRechercheArtiste.substring(0, valeurRechercheArtiste.indexOf("album"));
+			}
+			if( valeurRechercheArtiste.indexOf("genre") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheArtiste = valeurRechercheArtiste.substring(0, valeurRechercheArtiste.indexOf("genre"));
+			}
+		}
+
+		if(rechercheGenre){
+			recherchePersonnalisee = true;
+			valeurRechercheGenre = valeurRecherche.substring(valeurRecherche.indexOf("genre") + 6);
+			if( valeurRechercheGenre.indexOf("titre") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheGenre = valeurRechercheGenre.substring(0, valeurRechercheGenre.indexOf("titre"));
+			}
+			if( valeurRechercheGenre.indexOf("album") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheGenre = valeurRechercheGenre.substring(0, valeurRechercheGenre.indexOf("album"));
+			}
+			if( valeurRechercheGenre.indexOf("artiste") != -1 ) {
+				// on a trouvé un mot clé correspondant à l'album
+				valeurRechercheGenre = valeurRechercheGenre.substring(0, valeurRechercheGenre.indexOf("artiste"));
+			}
+		}
+		if(rechercheTitre){
+			
+			System.out.println("on a detecté une recherche par titre avec titre = " +valeurRechercheTitre);
+			filtreTitre = RowFilter.regexFilter("(?i)" + valeurRechercheTitre.trim(), 0);
+			ensembleFiltre.add(filtreTitre);
+		} 
+		if(rechercheArtiste){
+			System.out.println("on a detecté une recherche par artiste avec artiste = " +valeurRechercheArtiste);
+			filtreArtiste = (RowFilter.regexFilter("(?i)" + valeurRechercheArtiste.trim(), 1));
+			ensembleFiltre.add(filtreArtiste);
+		} 
+		if(rechercheAlbum){
+			System.out.println("on a detecté une recherche par album avec album = " +valeurRechercheAlbum);
+			filtreAlbum = RowFilter.regexFilter("(?i)" + valeurRechercheAlbum.trim(), 2);
+			ensembleFiltre.add(filtreAlbum);
+		} 
+		if(rechercheGenre){
+			System.out.println("on a detecté une recherche par genre avec genre = " +valeurRechercheGenre);
+			filtreGenre = RowFilter.regexFilter("(?i)" + valeurRechercheGenre.trim(), 3);
+			ensembleFiltre.add(filtreGenre);
+		}
+		if (!recherchePersonnalisee) {
+			sorter.setRowFilter(RowFilter.regexFilter("(?i)" + valeurRecherche, 0, 1, 2));
+		}else{
+			// on fait un && avec les differents criteres
+			ensembleRowFilter = RowFilter.andFilter(ensembleFiltre);
+			sorter.setRowFilter(ensembleRowFilter);
+		}
 	}
 
 	private void initHandler() {
@@ -168,7 +293,6 @@ public class RechercheVue extends JPanel implements Observer {
 		}
 
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			System.out.println("j'appuie sur l'index : " +rowIndex);
 			return donnees[rowIndex][columnIndex];
 		}
 
@@ -192,14 +316,13 @@ public class RechercheVue extends JPanel implements Observer {
 
 		private void initTable()
 		{
-			nomsColonnes = new String[7];
-			nomsColonnes[0] = "Numéro";
-			nomsColonnes[1] = "Titre";
-			nomsColonnes[2] = "Artiste";
-			nomsColonnes[3] = "Album";
-			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "Année";
-			nomsColonnes[6] = "Durée";
+			nomsColonnes = new String[6];
+			nomsColonnes[0] = "Titre";
+			nomsColonnes[1] = "Artiste";
+			nomsColonnes[2] = "Album";
+			nomsColonnes[3] = "Genre";
+			nomsColonnes[4] = "Année";
+			nomsColonnes[5] = "Durée";
 
 			donnees = controlleur.avoirResultatsRecherche();
 		}

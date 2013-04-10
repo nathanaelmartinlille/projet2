@@ -25,7 +25,7 @@ public class MusiqueUtils {
 
 	public static void main(String[] args) {
 		MusiqueUtils musiqueUtils = new MusiqueUtils();
-		List<File> recupererMusique = musiqueUtils.recupererMusique("./ressources/Musiques");
+		List<File> recupererMusique = musiqueUtils.recupererMusique(Constantes.CHEMIN_MUSIQUE);
 		for (File file : recupererMusique) {
 			System.out.println("fichier trouvé : " + file.getName());
 		}

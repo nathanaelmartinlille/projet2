@@ -146,7 +146,6 @@ public class PlayListMusique extends JPanel implements Observer {
 		}
 
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			//System.out.println("j'appuie sur l'index : " +rowIndex);
 			return donnees[rowIndex][columnIndex];
 		}
 
