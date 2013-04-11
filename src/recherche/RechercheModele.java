@@ -55,27 +55,30 @@ public class RechercheModele extends Observable {
 
 			ResultSet rs2 = statement.executeQuery("select * from songs");
 			int j = 0;
+
 			while(rs2.next())
 			{
 				j++;
 			}
-			tableau = new String[j][6];
+			tableau = new String[j][7];
 			int i = 1;
-			ResultSet rs = statement.executeQuery("select * from songs");
-			while(rs.next())
+			rs2 = statement.executeQuery("select * from songs");
+
+			while(rs2.next())
 			{
-				tableau[i-1][0] = rs.getString("album");
-				tableau[i-1][1] = rs.getString("artist");
-				tableau[i-1][2] = rs.getString("title");
-				tableau[i-1][3] = rs.getString("genre");
-				tableau[i-1][4] = rs.getString("year");
-				tableau[i-1][5] = rs.getString("duration");
+				tableau[i-1][0] = rs2.getString("album");
+				tableau[i-1][1] = rs2.getString("artist");
+				tableau[i-1][2] = rs2.getString("title");
+				tableau[i-1][3] = rs2.getString("genre");
+				tableau[i-1][4] = rs2.getString("year");
+				tableau[i-1][5] = rs2.getString("duration");
 				i++;
 			}
 		}
 		catch(SQLException e)
 		{
 			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 		finally
 		{
