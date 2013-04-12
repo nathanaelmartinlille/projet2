@@ -63,7 +63,7 @@ public class PlayListMusique extends JPanel implements Observer {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_DELETE)
+				if(e.getKeyCode() == KeyEvent.VK_DELETE || e.getKeyCode() == KeyEvent.VK_ALT)
 				{
 					System.out.println("supprimer");
 					controlleur.supprimerMusique(tableMorceaux.getSelectedRow());

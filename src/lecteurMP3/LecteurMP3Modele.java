@@ -38,6 +38,7 @@ public class LecteurMP3Modele extends Observable {
 	public void majModele(Musique nouvelleMusique) 
 	{
 		System.out.println("maj musique : "+nouvelleMusique);
+		controlleur.afficherStop();
 		musiqueActuelle = nouvelleMusique;
 		currentPath = musiqueActuelle.path;
 		try {
@@ -45,7 +46,6 @@ public class LecteurMP3Modele extends Observable {
 			state = 0;
 			playPause();
 		} catch (JavaLayerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -78,9 +78,10 @@ public class LecteurMP3Modele extends Observable {
 	}
 
 	public void setVolume(float level){
-		volume = level;
-		System.out.println("volume : "+level);
-		player.setVolume(level/10);
+		System.out.println("volume avant : "+volume);
+		volume = level/100;
+		System.out.println("volume : "+level/100);
+		player.setVolume(level/100);
 	}
 
 	public int getDuration(){
@@ -140,7 +141,7 @@ public class LecteurMP3Modele extends Observable {
 				if(player == playerInterne){
 					System.out.println("EndEvent");
 					controlleur.afficherStop();
-					passerChansonSuivante(musiqueActuelle);
+					passerChansonSuivante();
 				}
 			}catch(Exception e){ e.printStackTrace(); }
 		}
@@ -162,7 +163,7 @@ public class LecteurMP3Modele extends Observable {
 		this.state = status;
 	}
 	
-	public void passerChansonSuivante(Musique musiqueActuelle)
+	public void passerChansonPrecedente()
 	{
 		Musique m = null;
 		try {
@@ -178,8 +179,15 @@ public class LecteurMP3Modele extends Observable {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
 			
+			// On vérifie row -> si c'est le premier de la liste alors on met le dernier
+			int row = getRowId(musiqueActuelle);
+			if(row == 0)
+					row = dernierRowListe();		
+			else
+				row--;
+			
 			// On vérifie que le morceau n'est pas déjà dans le player
-			ResultSet rs = statement.executeQuery("select * from musiques WHERE rowid = '"+musiqueActuelle.path+"' ");
+			ResultSet rs = statement.executeQuery("select * from musiques WHERE rowid = '"+(getRowId(musiqueActuelle)-1)+"' ");
 
 			if(rs.next())
 			{
@@ -205,7 +213,150 @@ public class LecteurMP3Modele extends Observable {
 				System.err.println(e);
 			}
 		}
-		majModele(m);
+		controlleur.lireMusique(m);
+	}
+	
+	public void passerChansonSuivante()
+	{
+		Musique m = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+
+		Connection connection = null;
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30);  // set timeout to 30 sec.
+			
+			// On vérifie row -> si c'est le dernier de la liste alors on met 0
+			int row = getRowId(musiqueActuelle);
+			if(row == dernierRowListe())
+				row = 0;
+			else
+				row++;
+			
+			// On vérifie que le morceau n'est pas déjà dans le player
+			ResultSet rs = statement.executeQuery("select * from musiques WHERE rowid = '"+row+"' ");
+
+			if(rs.next())
+			{
+				m = new Musique(rs.getString("title"), rs.getString("album"), rs.getString("artist"), rs.getString("genre"), rs.getString("year"), rs.getString("duration"), rs.getString("path"));
+			}
+
+
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(connection != null)
+					connection.close();
+			}
+			catch(SQLException e)
+			{
+				System.err.println(e);
+			}
+		}
+		controlleur.lireMusique(m);
+	}
+	
+	public int dernierRowListe()
+	{
+		int row = 0;
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+
+		Connection connection = null;
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30);  // set timeout to 30 sec.
+			
+			// On vérifie que le morceau n'est pas déjà dans le player
+			ResultSet rs = statement.executeQuery("select rowid from musiques");
+
+			if(rs.next())
+			{
+				row = rs.getInt("rowid");
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(connection != null)
+					connection.close();
+			}
+			catch(SQLException e)
+			{
+				System.err.println(e);
+			}
+		}
+		return row;
+	}
+	
+	public int getRowId(Musique musique)
+	{
+		int row = 0;
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+
+		Connection connection = null;
+		try
+		{
+			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30);  // set timeout to 30 sec.
+			
+			// On vérifie que le morceau n'est pas déjà dans le player
+			ResultSet rs = statement.executeQuery("select rowid from musiques WHERE path = '"+musiqueActuelle.path+"' ");
+
+			if(rs.next())
+			{
+				row = rs.getInt("rowid");
+			}
+		}
+		catch(SQLException e)
+		{
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(connection != null)
+					connection.close();
+			}
+			catch(SQLException e)
+			{
+				System.err.println(e);
+			}
+		}
+		System.out.println("row : "+row);
+		
+		return row;
 	}
 
 }

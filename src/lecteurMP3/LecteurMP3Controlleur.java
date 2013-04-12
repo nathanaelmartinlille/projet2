@@ -50,7 +50,18 @@ public class LecteurMP3Controlleur {
 	
 	public void setVolume(float volume)
 	{
+		System.out.println("volume : "+volume);
 		modele.setVolume(volume);
+	}
+	
+	public void chansonSuivante()
+	{
+		modele.passerChansonSuivante();
+	}
+	
+	public void chansonPrecedente()
+	{
+		modele.passerChansonPrecedente();
 	}
 	
 	public void afficherStop()
