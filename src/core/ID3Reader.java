@@ -1,7 +1,8 @@
-package partage;
+package core;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
 
 import org.farng.mp3.MP3File;
 import org.farng.mp3.TagException;
@@ -42,14 +43,23 @@ public class ID3Reader {
 	}	
 
 	public String recupererStringEncodee(String s){
-		try {
-			// Convert from Unicode to UTF-8
-			byte[] utf8 = s.getBytes("UTF-8");
-
-			// Convert from UTF-8 to Unicode
-			return new String(utf8, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+		String input = s; // my UTF-16 string
+		StringBuilder sb = new StringBuilder(input.length());
+		for (int i = 0; i < input.length(); i++) {
+			char ch = input.charAt(i);
+			if (ch <= 0xFF) {
+				sb.append(ch);
+			}
 		}
+
+		try {
+			byte[] ascii = sb.toString().getBytes("ISO-8859-1");
+			s = new String(ascii);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} // aka LATIN-1
+		if(s.length()> 1)
+			s = s.replaceAll(s.substring(1, 2), "");
 		return s;
 	}
 
