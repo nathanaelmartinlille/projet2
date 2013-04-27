@@ -16,25 +16,21 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
-
 import core.ID3Reader;
 import core.Musique;
 
-import quicktime.std.movies.media.MusicMedia;
-import quicktime.std.music.MusicData;
 
 
-
-public class PlayListMusique extends JPanel implements Observer {
+public class PlayListMusiqueVue extends JPanel implements Observer {
 
 	/**
 	 * 
@@ -43,7 +39,7 @@ public class PlayListMusique extends JPanel implements Observer {
 	PlayListMusiquesControlleur controlleur;
 	private JTable tableMorceaux;
 
-	public PlayListMusique(final PlayListMusiquesControlleur controlleur)
+	public PlayListMusiqueVue(final PlayListMusiquesControlleur controlleur)
 	{
 		this.controlleur = controlleur;
 		tableMorceaux =  new JTable(new TablePerso());
@@ -69,7 +65,7 @@ public class PlayListMusique extends JPanel implements Observer {
 					controlleur.supprimerMusique(tableMorceaux.getSelectedRow());
 					MAJTable(null);
 				}
-				//Si on appuie sur entrŽe, on joue la musique
+				//Si on appuie sur entrï¿½e, on joue la musique
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					System.out.println("entrer");
@@ -81,8 +77,6 @@ public class PlayListMusique extends JPanel implements Observer {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
@@ -90,26 +84,27 @@ public class PlayListMusique extends JPanel implements Observer {
 				if(e.getClickCount() == 2 )
 				{
 		                System.out.println("Double clicked");
-		                controlleur.jouerMusique(tableMorceaux.getSelectedRow());
+		                try {
+							controlleur.jouerMusique(tableMorceaux.getSelectedRow());
+		                } catch (Exception e1) {
+							JOptionPane.showMessageDialog(null,
+									"Erreur lors de l'ouverture du fichier",
+									"Erreur durant l'ouverture du fichier, fichier introuvable",
+									JOptionPane.ERROR_MESSAGE);
+						}
 				}
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		
@@ -138,8 +133,7 @@ public class PlayListMusique extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
+		//FIXME le mvc marche comment ici ? 
 	}
 	
 	class TransferHandlerPerso extends TransferHandler
@@ -168,7 +162,6 @@ public class PlayListMusique extends JPanel implements Observer {
 			Transferable data = support.getTransferable();
 
 			try {
-				System.out.println("je try");
 				data.getTransferData(DataFlavor.javaFileListFlavor);
 				System.out.println("data : "+data);
 				List<?> filelist = (List<?>) data.getTransferData(DataFlavor.javaFileListFlavor);
@@ -182,7 +175,6 @@ public class PlayListMusique extends JPanel implements Observer {
 		        	try {
 						player = new LillePlayer(f.getAbsolutePath());
 					} catch (JavaLayerException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 		        	int duration = player.getDuration();
@@ -220,7 +212,7 @@ public class PlayListMusique extends JPanel implements Observer {
 
 	}
 	
-	//FIXME je n'ai pas trouvŽ d'autre moyen que de tout rŽinitialiser poiur avoir les nouvelles musiques
+	//FIXME je n'ai pas trouvï¿½ d'autre moyen que de tout rï¿½initialiser poiur avoir les nouvelles musiques
 	public void MAJTable(Musique musiqueActuelle)
 	{
 		System.out.println("MAJTABLE");
@@ -288,14 +280,14 @@ public class PlayListMusique extends JPanel implements Observer {
 		{
 			System.out.println("init table");
 			nomsColonnes = new String[8];
-			nomsColonnes[0] = "NumŽro";
+			nomsColonnes[0] = "Numï¿½ro";
 			nomsColonnes[1] = "Artiste";
 			nomsColonnes[2] = "Titre";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
-			nomsColonnes[5] = "AnnŽe";
-			nomsColonnes[6] = "DurŽe";
-			nomsColonnes[7] = "Nombre d'Žcoutes";
+			nomsColonnes[5] = "Annï¿½e";
+			nomsColonnes[6] = "Durï¿½e";
+			nomsColonnes[7] = "Nombre d'ï¿½coutes";
 
 			donnees = controlleur.getMusiques();
 			

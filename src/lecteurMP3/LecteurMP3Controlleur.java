@@ -1,27 +1,37 @@
 package lecteurMP3;
 
-import playlist.PlayListMusiqueModele;
-import core.Musique;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
+import core.Musique;
 
 
+/**Controlleur qui permet de gerer les evenements liés au panel du lecteur de MP3.
+ * @author nath
+ *
+ */
 public class LecteurMP3Controlleur {
 
 	private LecteurMP3Vue vue;
 	LecteurMP3Modele modele;
 	
+	/**
+	 * COnstructeur par defaut.
+	 */
 	public LecteurMP3Controlleur() {
 		this.setVue(new LecteurMP3Vue(this));
 		this.modele = new LecteurMP3Modele(this);
 		modele.addObserver(getVue());
 	}
 	
-	public void demandeDeMiseAJour(){
+	/**
+	 * Methode qui est appellée lorsqu'il y a une mise à jour à effectuer sur la vue
+	 * @throws Exception 
+	 */
+	public void demandeDeMiseAJour() throws Exception{
 		modele.majModele(null);
 	}
 
-	public void playPauseControlleur() throws JavaLayerException {
+	public void playPauseControlleur() throws Exception {
 		modele.playPause();
 	}
 	
@@ -54,12 +64,12 @@ public class LecteurMP3Controlleur {
 		modele.setVolume(volume);
 	}
 	
-	public void chansonSuivante()
+	public void chansonSuivante() throws Exception
 	{
 		modele.passerChansonSuivante();
 	}
 	
-	public void chansonPrecedente()
+	public void chansonPrecedente() throws Exception
 	{
 		modele.passerChansonPrecedente();
 	}
@@ -71,7 +81,7 @@ public class LecteurMP3Controlleur {
 		vue.sliderLecture.setValue(0);
 	}
 	
-	public void lireMusique(Musique m)
+	public void lireMusique(Musique m) throws Exception
 	{
 		vue.lectureEnCours = true;
 		modele.majModele(m);

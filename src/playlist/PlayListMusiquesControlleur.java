@@ -9,13 +9,13 @@ public class PlayListMusiquesControlleur {
 
 	private LecteurMP3Controlleur lecteurMP3Controlleur;
 	
-	private PlayListMusique vue;
+	private PlayListMusiqueVue vue;
 	PlayListMusiqueModele modele;
 	
 	public PlayListMusiquesControlleur(LecteurMP3Controlleur lecteurMP3Controlleur) {
 		
 		this.modele = new PlayListMusiqueModele();
-		this.setVue(new PlayListMusique(this));
+		this.setVue(new PlayListMusiqueVue(this));
 		this.lecteurMP3Controlleur = lecteurMP3Controlleur;
 		modele.addObserver(getVue());
 	}
@@ -24,11 +24,11 @@ public class PlayListMusiquesControlleur {
 		modele.majModele(null);
 	}
 
-	public PlayListMusique getVue() {
+	public PlayListMusiqueVue getVue() {
 		return vue;
 	}
 
-	public void setVue(PlayListMusique vue) {
+	public void setVue(PlayListMusiqueVue vue) {
 		this.vue = vue;
 	}
 	
@@ -38,9 +38,9 @@ public class PlayListMusiquesControlleur {
 		
 	}
 	
-	public void jouerMusique(int row)
+	public void jouerMusique(int row) throws Exception
 	{
-		// On met ˆ jour le nombre d'Žcoutes
+		// On met ï¿½ jour le nombre d'ï¿½coutes
 		Musique musique = modele.getMusique(row+1);
 		modele.addOneLecture(row+1);
 		lecteurMP3Controlleur.lireMusique(musique);

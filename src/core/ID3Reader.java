@@ -31,7 +31,6 @@ public class ID3Reader {
 	}
 
 	private void enregistrerInformations() {
-		//FIXME consulter le tag en UTF16
 		AbstractID3v2 tag = mp3file.getID3v2Tag();
 		if(tag != null){
 			setTitle(recupererStringEncodee(tag.getSongTitle()));

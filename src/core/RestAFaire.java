@@ -19,7 +19,7 @@ public class RestAFaire {
 	//TODO optionnellement, créer/éditer des listes de lecture
 	//TODO faire des smartplaylist ( ajout d'un bouton LIRE TOUT qui permet de lire la liste de morceau qui ont été filtré lors de la recherche
 // pour le tri : afficher une colonne triée par defaut
-//TODO faire des recherches plus poussé avec des tag : titre:truc 
+//ok faire des recherches plus poussé avec des tag : titre:truc 
 	// afficher avec une bulle d'aide qui s'affiche au contact du champs de recherche
-	//TODO faire le volume
+	//ok faire le volume
 }

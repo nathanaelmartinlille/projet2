@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Observable;
 
+import javax.swing.JOptionPane;
+
 import core.ID3Reader;
 import core.Musique;
 
@@ -34,23 +36,27 @@ public class LecteurMP3Modele extends Observable {
 		state = 0;
 	}
 
-	// Cette fonction est appelŽe depuis la table des musiques
-	public void majModele(Musique nouvelleMusique) 
+	// Cette fonction est appelï¿½e depuis la table des musiques
+	public void majModele(Musique nouvelleMusique) throws Exception 
 	{
 		System.out.println("maj musique : "+nouvelleMusique);
 		controlleur.afficherStop();
 		musiqueActuelle = nouvelleMusique;
-		currentPath = musiqueActuelle.path;
-		try {
-			stop();
-			state = 0;
-			playPause();
-		} catch (JavaLayerException e) {
-			e.printStackTrace();
+		// gestion du cas d'une musique provenant de la bdd. 
+		if(!(musiqueActuelle == null)){
+			currentPath = musiqueActuelle.path;
+			try {
+				stop();
+				state = 0;
+				playPause();
+			} catch (JavaLayerException e) {
+				e.printStackTrace();
+			}
 		}
+
 	}
 
-	public void playPause() throws JavaLayerException{
+	public void playPause() throws Exception{
 
 		if(state == 0){
 			load(currentPath);
@@ -103,12 +109,17 @@ public class LecteurMP3Modele extends Observable {
 		position = pos;
 	}
 
-	public void load(String path) throws JavaLayerException{
+	public void load(String path) throws Exception{
 		if(state != 0)
 			stop();
 
 		currentPath = path;
-		player = new LillePlayer(currentPath);
+		try {
+			player = new LillePlayer(currentPath);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		
 		player.setVolume(volume);
 		Equalizer eq = new Equalizer();
 		eq.getBand(0);
@@ -162,8 +173,8 @@ public class LecteurMP3Modele extends Observable {
 	public void setStatus(int status) {
 		this.state = status;
 	}
-	
-	public void passerChansonPrecedente()
+
+	public void passerChansonPrecedente() throws Exception
 	{
 		Musique m = null;
 		try {
@@ -178,15 +189,15 @@ public class LecteurMP3Modele extends Observable {
 			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
-			
-			// On vŽrifie row -> si c'est le premier de la liste alors on met le dernier
+
+			// On vï¿½rifie row -> si c'est le premier de la liste alors on met le dernier
 			int row = getRowId(musiqueActuelle);
 			if(row == 0)
-					row = dernierRowListe();		
+				row = dernierRowListe();		
 			else
 				row--;
-			
-			// On vŽrifie que le morceau n'est pas dŽjˆ dans le player
+
+			// On vï¿½rifie que le morceau n'est pas dï¿½jï¿½ dans le player
 			ResultSet rs = statement.executeQuery("select * from musiques WHERE rowid = '"+(getRowId(musiqueActuelle)-1)+"' ");
 
 			if(rs.next())
@@ -215,8 +226,8 @@ public class LecteurMP3Modele extends Observable {
 		}
 		controlleur.lireMusique(m);
 	}
-	
-	public void passerChansonSuivante()
+
+	public void passerChansonSuivante() throws Exception
 	{
 		Musique m = null;
 		try {
@@ -231,15 +242,15 @@ public class LecteurMP3Modele extends Observable {
 			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
-			
-			// On vŽrifie row -> si c'est le dernier de la liste alors on met 0
+
+			// On vï¿½rifie row -> si c'est le dernier de la liste alors on met 0
 			int row = getRowId(musiqueActuelle);
 			if(row == dernierRowListe())
 				row = 0;
 			else
 				row++;
-			
-			// On vŽrifie que le morceau n'est pas dŽjˆ dans le player
+
+			// On vï¿½rifie que le morceau n'est pas dï¿½jï¿½ dans le player
 			ResultSet rs = statement.executeQuery("select * from musiques WHERE rowid = '"+row+"' ");
 
 			if(rs.next())
@@ -268,7 +279,7 @@ public class LecteurMP3Modele extends Observable {
 		}
 		controlleur.lireMusique(m);
 	}
-	
+
 	public int dernierRowListe()
 	{
 		int row = 0;
@@ -284,8 +295,8 @@ public class LecteurMP3Modele extends Observable {
 			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
-			
-			// On vŽrifie que le morceau n'est pas dŽjˆ dans le player
+
+			// On vï¿½rifie que le morceau n'est pas dï¿½jï¿½ dans le player
 			ResultSet rs = statement.executeQuery("select rowid from musiques");
 
 			if(rs.next())
@@ -312,7 +323,7 @@ public class LecteurMP3Modele extends Observable {
 		}
 		return row;
 	}
-	
+
 	public int getRowId(Musique musique)
 	{
 		int row = 0;
@@ -328,8 +339,8 @@ public class LecteurMP3Modele extends Observable {
 			connection = DriverManager.getConnection("jdbc:sqlite:" + "ressources/mp3database.sqlite");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
-			
-			// On vŽrifie que le morceau n'est pas dŽjˆ dans le player
+
+			// On vï¿½rifie que le morceau n'est pas dï¿½jï¿½ dans le player
 			ResultSet rs = statement.executeQuery("select rowid from musiques WHERE path = '"+musiqueActuelle.path+"' ");
 
 			if(rs.next())
@@ -355,7 +366,7 @@ public class LecteurMP3Modele extends Observable {
 			}
 		}
 		System.out.println("row : "+row);
-		
+
 		return row;
 	}
 

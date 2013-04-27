@@ -107,7 +107,7 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					controlleur.playPauseControlleur();
-				} catch (JavaLayerException e1) {
+				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null,
 							"Erreur lors de l'ouverture du fichier",
 							"Erreur durant l'ouverture du fichier, fichier introuvable",
@@ -153,7 +153,14 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlleur.chansonSuivante();
+				try {
+					controlleur.chansonSuivante();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,
+						    "Probleme lors de la lecture de la piste suivante",
+						    "Erreur de lecture",
+						    JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -167,7 +174,14 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				try{
 				controlleur.chansonPrecedente();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,
+						    "Probleme lors de la lecture de la piste suivante",
+						    "Erreur de lecture",
+						    JOptionPane.ERROR_MESSAGE);
+				}
 			}
 
 			@Override
@@ -216,15 +230,17 @@ public class LecteurMP3Vue extends JPanel implements Observer {
 		Icon icon = imgPause;
 		if(lectureEnCours && play.getIcon() != icon)
 		{
-			System.out.println("je suis la");
 			play.setIcon(icon);
 		}
 		
 		// on va update les textfield avec le nom de la musique, ainsi que la position actuelle de la lecture
 		float pourcentageAvancement = ((float) lecteurMP3Modele.getPosition() / (float) lecteurMP3Modele.getDuration()) *100;	
 		sliderLecture.setValue((int) (pourcentageAvancement *10));
-		ecouteActuelle.setText("en ecoute : " + lecteurMP3Modele.musiqueActuelle.toString());
-		System.out.println("PositionEvent avec position en pourcent =" + pourcentageAvancement); 
+		if(lecteurMP3Modele.musiqueActuelle == null){
+			ecouteActuelle.setText("aucune musique actuellement");
+		}else{
+			ecouteActuelle.setText("en ecoute : " + lecteurMP3Modele.musiqueActuelle.toString());
+		}System.out.println("PositionEvent avec position en pourcent =" + pourcentageAvancement); 
 
 	}
 

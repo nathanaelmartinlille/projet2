@@ -4,7 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
-import playlist.PlayListMusique;
+import playlist.PlayListMusiqueVue;
 import playlist.PlayListMusiquesControlleur;
 import recherche.RechercheControlleur;
 import recherche.RechercheVue;
@@ -17,7 +17,7 @@ public class FenetrePrincipale {
 	private JFrame frameFenetrePrincipale; 
 	private LecteurMP3Vue vueLecteurMP3;
 	private RechercheVue vueRecherche;
-	private PlayListMusique vueListeMusiques;
+	private PlayListMusiqueVue vueListeMusiques;
 
 	public FenetrePrincipale() {
 		initComposant();
