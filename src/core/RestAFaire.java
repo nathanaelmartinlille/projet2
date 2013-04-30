@@ -18,6 +18,7 @@ public class RestAFaire {
 	//TODO proposer des fonctionnalités de lecture aléatoire avancée
 	//TODO optionnellement, créer/éditer des listes de lecture
 	//TODO faire des smartplaylist ( ajout d'un bouton LIRE TOUT qui permet de lire la liste de morceau qui ont été filtré lors de la recherche
+	//FIXME pourquoi on a mis plusieurs tables ( musiques et songs) .???? 
 // pour le tri : afficher une colonne triée par defaut
 //ok faire des recherches plus poussé avec des tag : titre:truc 
 	// afficher avec une bulle d'aide qui s'affiche au contact du champs de recherche

@@ -28,6 +28,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 
+/**Cette classe permet de modeliser la vue du panel de recherche.
+ */
 public class RechercheVue extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1L;
@@ -123,8 +125,6 @@ public class RechercheVue extends JPanel implements Observer {
 		rechercheAlbum = valeurRecherche.contains("album");
 		rechercheArtiste = valeurRecherche.contains("artiste");
 		rechercheGenre = valeurRecherche.contains("genre");
-		// ON PEUT FAIRE PLUS SIMPLE MAIS CEST LE SOIR LA FLEMME
-		//FIXME ajouter le delimiteur !!! 
 		// on va chercher quel mot clé a été utilisé par l'utilisateur
 		if(rechercheTitre){
 			recherchePersonnalisee = true;

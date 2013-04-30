@@ -85,7 +85,7 @@ public class PlayListMusiqueModele extends Observable {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
 			
-			// On vŽrifie que le morceau n'est pas dŽjˆ dans le player
+			// On vï¿½rifie que le morceau n'est pas dï¿½jï¿½ dans le player
 			ResultSet rs = statement.executeQuery("select * from musiques WHERE rowid = '"+row+"' ");
 
 			if(rs.next())
@@ -131,7 +131,7 @@ public class PlayListMusiqueModele extends Observable {
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
 			System.out.println("que ajouter : "+"insert into musiques values('"+musique.album+"','"+ musique.artiste +"','"+musique.titre+"','"+musique.genre+"','"+musique.annee+"','"+musique.duree+"','0','"+musique.path+"');");
 
-			// On vŽrifie que le morceau n'est pas dŽjˆ dans le player
+			// On vï¿½rifie que le morceau n'est pas dï¿½jï¿½ dans le player
 			ResultSet rs = statement.executeQuery("select * from musiques WHERE path = '"+musique.path+"' ");
 
 			if(!rs.next())
@@ -198,14 +198,13 @@ public class PlayListMusiqueModele extends Observable {
 
 		return true;
 	}
-
+//FIXME degueulasse => j'ai fait un altertable sur la table SONG pour ajouter la colonne NBECOUTE, il faudrait utiliser cette colonne.
 	public int getNbLecture(int row)
 	{
 		int cpt = -1;
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Connection connection = null;

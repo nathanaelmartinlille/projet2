@@ -7,20 +7,19 @@ public class RechercheControlleur {
 	private RechercheVue vue;
 	RechercheModele modele;
 	
+	/**
+	 * Constructeur par defaut
+	 * Par defaut on fait une recherche fictive des morceaux.
+	 */
 	public RechercheControlleur() {
 		
-		this.modele = new RechercheModele();
+		this.modele = new RechercheModele(true);
 		this.setVue(new RechercheVue(this));
 		modele.addObserver(getVue());
 	}
 	
-	public void demandeDeMiseAJour(){
-		modele.majModele(null);
-	}
-
 	public void demandeRecherche(JTextField aChercher)
 	{
-		System.out.println("demande rech");
 		modele.chercher(aChercher);
 	}
 	

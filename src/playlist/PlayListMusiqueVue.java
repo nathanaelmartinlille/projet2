@@ -280,14 +280,14 @@ public class PlayListMusiqueVue extends JPanel implements Observer {
 		{
 			System.out.println("init table");
 			nomsColonnes = new String[8];
-			nomsColonnes[0] = "Num�ro";
+			nomsColonnes[0] = "Numéro";
 			nomsColonnes[1] = "Artiste";
 			nomsColonnes[2] = "Titre";
 			nomsColonnes[3] = "Album";
 			nomsColonnes[4] = "Genre";
 			nomsColonnes[5] = "Ann�e";
 			nomsColonnes[6] = "Dur�e";
-			nomsColonnes[7] = "Nombre d'�coutes";
+			nomsColonnes[7] = "Nombre d'écoutes";
 
 			donnees = controlleur.getMusiques();
 			

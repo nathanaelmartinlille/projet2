@@ -8,38 +8,56 @@ import java.util.Observable;
 
 import javax.swing.JTextField;
 
-import core.Musique;
-
-
-
-
+/**
+ * @author nath
+ *
+ */
 public class RechercheModele extends Observable {
 
 	String[][] resultatsRecherche;
 	String[][] tableauBDD;
 
-	public RechercheModele() {
-		tableauBDD = trouverBDD();
+	/**Constructeur par defaut.
+	 * @param rechercheEnBase true si on veut rechercher dans la base fictive.
+	 */
+	public RechercheModele(boolean rechercheEnBase) {
+		tableauBDD = trouverBDD(rechercheEnBase);
 		resultatsRecherche = tableauBDD;
 	}
 
-	public void majModele(Musique nouvelleMusique) {
-
-	}
-
+	/**Methode qui va mettre a jour les tables avec les sorters.
+	 * @param texteAChercher le texte à chercher
+	 *///FIXME a quoi sert cette variable alors qu'on en fait rien ???
 	public void chercher(JTextField texteAChercher)
 	{
 		setChanged();
 		notifyObservers();
 	}
-	
 
-
-	// Pour faire la recherche sur la base de donn�es : 
-	public String[][] trouverBDD()
+	/**
+	 * @param rechercheEnBase vrai si on recherche en base, faux si on fait une recherche locale.
+	 * @return la liste des resultats de la recherche
+	 */
+	public String[][] trouverBDD(boolean rechercheEnBase)
 	{
-		String[][] tableau = null;
+		if(rechercheEnBase){
+			return rechercherEnBase();
+		}else{
+			return rechercheEnLocal();
+		}
+	}
 
+	/**
+	 * @return la liste des resultats de la recherche locale.
+	 */
+	private String[][] rechercheEnLocal() {
+		String[][] tableau = null;
+		System.out.println("on fait une recherche locale");
+		return tableau;
+	}
+
+	private String[][] rechercherEnBase() {
+		String[][] tableau = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e1) {
@@ -93,6 +111,7 @@ public class RechercheModele extends Observable {
 			}
 		}
 		return tableau;
+		
 	}
 	
 	
