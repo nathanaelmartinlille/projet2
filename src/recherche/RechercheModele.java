@@ -1,12 +1,20 @@
 package recherche;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import javax.swing.JTextField;
+
+import core.Constantes;
+import core.ID3Reader;
+import core.Musique;
+import core.MusiqueUtils;
 
 /**
  * @author nath
@@ -15,14 +23,12 @@ import javax.swing.JTextField;
 public class RechercheModele extends Observable {
 
 	String[][] resultatsRecherche;
-	String[][] tableauBDD;
 
 	/**Constructeur par defaut.
 	 * @param rechercheEnBase true si on veut rechercher dans la base fictive.
 	 */
 	public RechercheModele(boolean rechercheEnBase) {
-		tableauBDD = trouverBDD(rechercheEnBase);
-		resultatsRecherche = tableauBDD;
+		trouverBDD(rechercheEnBase);
 	}
 
 	/**Methode qui va mettre a jour les tables avec les sorters.
@@ -38,12 +44,13 @@ public class RechercheModele extends Observable {
 	 * @param rechercheEnBase vrai si on recherche en base, faux si on fait une recherche locale.
 	 * @return la liste des resultats de la recherche
 	 */
-	public String[][] trouverBDD(boolean rechercheEnBase)
+	public void trouverBDD(boolean rechercheEnBase)
 	{
+		System.out.println("on fait une mise à jour du tableau");
 		if(rechercheEnBase){
-			return rechercherEnBase();
+			resultatsRecherche = rechercherEnBase();
 		}else{
-			return rechercheEnLocal();
+			resultatsRecherche = rechercheEnLocal();
 		}
 	}
 
@@ -53,6 +60,27 @@ public class RechercheModele extends Observable {
 	private String[][] rechercheEnLocal() {
 		String[][] tableau = null;
 		System.out.println("on fait une recherche locale");
+		ID3Reader reader;
+		int i = 1;
+		List<Musique> listeMusiqueConvertie = new ArrayList<Musique>();
+		
+		List<File> listeFichierEnLocal = MusiqueUtils.recupererMusique(Constantes.CHEMIN_MUSIQUE);
+		for (File file : listeFichierEnLocal) {
+			reader = new ID3Reader(file.getPath());
+			System.out.println("musique trouvee = " + reader.getTitle());
+			listeMusiqueConvertie.add(reader.recupererMusiqueAPartirInformationTag());
+		}
+		
+		tableau = new String[listeMusiqueConvertie.size()][7];
+		for (Musique musique : listeMusiqueConvertie) {
+			tableau[i-1][0] = musique.album;
+			tableau[i-1][1] = musique.artiste;
+			tableau[i-1][2] = musique.titre;
+			tableau[i-1][3] = musique.genre;
+			tableau[i-1][4] = musique.annee;
+			tableau[i-1][5] = musique.duree;
+			i++;
+		}
 		return tableau;
 	}
 

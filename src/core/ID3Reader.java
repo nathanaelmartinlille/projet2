@@ -2,7 +2,6 @@ package core;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Iterator;
 
 import org.farng.mp3.MP3File;
 import org.farng.mp3.TagException;
@@ -12,11 +11,12 @@ import org.farng.mp3.id3.AbstractID3v2;
 public class ID3Reader {
 	File sourcefile;
 	MP3File mp3file;
-	private String title="";
-	private String artist="";
-	private String album="";
-	String genre="";
-	private String year="";
+	private String title;
+	private String artist;
+	private String album;
+	private String genre;
+	private String year;
+	private String duree;
 	public ID3Reader(String filename) {
 		sourcefile = new File(filename);
 		try {
@@ -62,6 +62,10 @@ public class ID3Reader {
 		return s;
 	}
 
+	public Musique recupererMusiqueAPartirInformationTag(){
+		return new Musique(title, album, artist, genre, year, duree, sourcefile.getPath());
+	}
+	
 	public String getTitle() {
 		return title;
 	}

@@ -13,7 +13,7 @@ public class RechercheControlleur {
 	 */
 	public RechercheControlleur() {
 		
-		this.modele = new RechercheModele(true);
+		this.modele = new RechercheModele(false);
 		this.setVue(new RechercheVue(this));
 		modele.addObserver(getVue());
 	}

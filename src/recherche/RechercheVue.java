@@ -2,8 +2,8 @@ package recherche;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,7 +15,7 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,39 +36,53 @@ public class RechercheVue extends JPanel implements Observer {
 
 	RechercheControlleur controlleur;
 
-	private JButton boutonRecherche;
 	private JTextField texteRecherche;
+	private JCheckBox choixRechercheLocale;
 	private Timer timer;
 	private TimerTask taskChercher;
 
-	// Pour les r�sultats de la recherche
+	// Pour les résultats de la recherche
 
 	JTable tableRecherche;
+	TablePerso tablePerso;
 	TableRowSorter<TableModel> sorter;
 
 
 
-	public RechercheVue(RechercheControlleur controlleur) {
+	public RechercheVue(final RechercheControlleur controlleur) {
 		this.controlleur = controlleur;
+		choixRechercheLocale = new JCheckBox("Utiliser une recherche fictive");
+		choixRechercheLocale.addItemListener(new ItemListener() {
 
-		boutonRecherche = new JButton("Chercher");
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// si la case est cochée on va faire une recherche fictive
+				controlleur.modele.trouverBDD(e.getStateChange() == ItemEvent.SELECTED);
+				tablePerso.initTable();
+				tablePerso.actualiserTable();
+			}
+		});
+
+		JPanel panelRechercheTexte = new JPanel();
 		texteRecherche = new JTextField(30);
+
 		texteRecherche.setToolTipText("exemple: titre: friday album: fantasia");
 
 		initHandler();
 		JPanel panelRecherche = new JPanel();
 		panelRecherche.setLayout(new GridLayout(1, 2));
-		panelRecherche.add(texteRecherche);
-		panelRecherche.add(boutonRecherche);
+		JLabel lab = new JLabel("Tapez votre recherche ici");
+		lab.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelRecherche.add(lab);
+		panelRechercheTexte.setLayout(new GridLayout(1, 2));
+		panelRechercheTexte.add(texteRecherche);
+		panelRechercheTexte.add(choixRechercheLocale);
+		panelRecherche.add(panelRechercheTexte);
 		this.setLayout(new BorderLayout());
 		this.add(panelRecherche, BorderLayout.NORTH);
-
-
-
-		tableRecherche =  new JTable(new TablePerso());
+		tablePerso = new TablePerso();
+		tableRecherche =  new JTable(tablePerso);
 		tableRecherche.setDragEnabled(false);
-		//tableRecherche.setTransferHandler(new TransferHandlerPerso(tableMorceaux));
-		//		tableRecherche.setBackground(new Color(253, 45, 155));
 
 		JPanel panelTable = new JPanel();
 		tableRecherche.setFillsViewportHeight(true);
@@ -82,10 +96,6 @@ public class RechercheVue extends JPanel implements Observer {
 		scrollRecherche.setMaximumSize(new Dimension(800, 100));
 		scrollRecherche.setPreferredSize(new Dimension(800, 100));
 		panelTable.add(scrollRecherche);
-
-
-		//panelTable.add(tableRecherche.getTableHeader(), BorderLayout.NORTH);
-
 
 		this.add(panelTable, BorderLayout.CENTER);
 		JLabel labelAide = new JLabel("double cliquez sur une musique pour l'ajouter à la liste ou bien glissez la");
@@ -117,7 +127,7 @@ public class RechercheVue extends JPanel implements Observer {
 		RowFilter<TableModel, Object> filtreGenre = null;
 		List<RowFilter<TableModel,Object>> ensembleFiltre = new ArrayList<RowFilter<TableModel,Object>>();
 		RowFilter<TableModel, Object> ensembleRowFilter = null;
-		
+
 		// On update la table
 		String valeurRecherche = texteRecherche.getText();
 		// on recherche les mots clés possible que l'utilisateur a pu taper
@@ -194,7 +204,7 @@ public class RechercheVue extends JPanel implements Observer {
 			}
 		}
 		if(rechercheTitre){
-			
+
 			System.out.println("on a detecté une recherche par titre avec titre = " +valeurRechercheTitre);
 			filtreTitre = RowFilter.regexFilter("(?i)" + valeurRechercheTitre.trim(), 0);
 			ensembleFiltre.add(filtreTitre);
@@ -224,14 +234,6 @@ public class RechercheVue extends JPanel implements Observer {
 	}
 
 	private void initHandler() {
-		boutonRecherche.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controlleur.demandeRecherche(texteRecherche);
-			}
-		});
-
 		texteRecherche.addKeyListener(new KeyListener() {
 
 			@Override
