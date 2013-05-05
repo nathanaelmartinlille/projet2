@@ -16,8 +16,6 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import javazoom.jl.decoder.JavaLayerException;
-
 
 public class LecteurMP3Vue extends JPanel implements Observer {
 

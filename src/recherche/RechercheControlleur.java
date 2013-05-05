@@ -1,5 +1,4 @@
 package recherche;
-import javax.swing.JTextField;
 
 
 public class RechercheControlleur {
@@ -18,9 +17,9 @@ public class RechercheControlleur {
 		modele.addObserver(getVue());
 	}
 	
-	public void demandeRecherche(JTextField aChercher)
+	public void rafraichirRecherche()
 	{
-		modele.chercher(aChercher);
+		modele.rafraichirRecherche();
 	}
 	
 	public String[][] avoirResultatsRecherche()

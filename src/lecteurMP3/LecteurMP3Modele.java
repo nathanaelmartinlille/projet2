@@ -6,14 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Observable;
 
-import javax.swing.JOptionPane;
-
-import core.ID3Reader;
-import core.Musique;
-
 import javazoom.jl.decoder.Equalizer;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
+import core.ID3Reader;
+import core.Musique;
 
 // requete en base
 public class LecteurMP3Modele extends Observable {
@@ -52,6 +49,8 @@ public class LecteurMP3Modele extends Observable {
 			} catch (JavaLayerException e) {
 				e.printStackTrace();
 			}
+		}else{
+			controlleur.chansonSuivante();
 		}
 
 	}

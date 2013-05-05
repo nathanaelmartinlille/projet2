@@ -8,6 +8,10 @@ import org.farng.mp3.TagException;
 import org.farng.mp3.id3.AbstractID3v2;
 
 
+/**Cette classe permet de gerer les tags des musiques.
+ * @author nath
+ *
+ */
 public class ID3Reader {
 	File sourcefile;
 	MP3File mp3file;
@@ -30,6 +34,9 @@ public class ID3Reader {
 
 	}
 
+	/**
+	 * Cette methode permet d'enregistrer les informations recupéré depuis le fichier de musique.
+	 */
 	private void enregistrerInformations() {
 		AbstractID3v2 tag = mp3file.getID3v2Tag();
 		if(tag != null){
@@ -41,6 +48,10 @@ public class ID3Reader {
 		}
 	}	
 
+	/**
+	 * @param s la string encodé en UTF16
+	 * @return la chaine decodée correctement.
+	 */
 	public String recupererStringEncodee(String s){
 		String input = s; // my UTF-16 string
 		StringBuilder sb = new StringBuilder(input.length());
@@ -62,6 +73,9 @@ public class ID3Reader {
 		return s;
 	}
 
+	/**
+	 * @return un objet musique initialisé à la valeur du tag actuel.
+	 */
 	public Musique recupererMusiqueAPartirInformationTag(){
 		return new Musique(title, album, artist, genre, year, duree, sourcefile.getPath());
 	}

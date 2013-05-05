@@ -12,6 +12,8 @@ import recherche.RechercheVue;
 import lecteurMP3.LecteurMP3Controlleur;
 import lecteurMP3.LecteurMP3Vue;
 
+/**La fenetre principale gere toutes les vues et controlleur.
+ */
 public class FenetrePrincipale {
 
 	private JFrame frameFenetrePrincipale; 
@@ -19,12 +21,18 @@ public class FenetrePrincipale {
 	private RechercheVue vueRecherche;
 	private PlayListMusiqueVue vueListeMusiques;
 
+	/**
+	 * Constructeur par defaut qui va initialiser les composants et la fenetre.
+	 */
 	public FenetrePrincipale() {
 		initComposant();
 		initFenetre();
 	}
 
 
+	/**
+	 * Cette methode initialise les controlleurs des differentes vue.
+	 */
 	private void initComposant() {
 		LecteurMP3Controlleur controlleurLecteurMP3 = new LecteurMP3Controlleur();
 		this.vueLecteurMP3 = controlleurLecteurMP3.getVue();
@@ -35,6 +43,9 @@ public class FenetrePrincipale {
 	}
 
 
+	/**
+	 * Methode qui va initialiser la fenetre.
+	 */
 	private void initFenetre() {
 		frameFenetrePrincipale = new JFrame();
 		frameFenetrePrincipale.add(vueRecherche);

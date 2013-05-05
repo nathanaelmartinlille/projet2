@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import javax.swing.JTextField;
-
 import core.Constantes;
 import core.ID3Reader;
 import core.Musique;
@@ -34,7 +32,7 @@ public class RechercheModele extends Observable {
 	/**Methode qui va mettre a jour les tables avec les sorters.
 	 * @param texteAChercher le texte à chercher
 	 *///FIXME a quoi sert cette variable alors qu'on en fait rien ???
-	public void chercher(JTextField texteAChercher)
+	public void rafraichirRecherche()
 	{
 		setChanged();
 		notifyObservers();

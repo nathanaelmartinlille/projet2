@@ -241,7 +241,7 @@ public class RechercheVue extends JPanel implements Observer {
 				System.out.println("key typed : "+e);
 				if(e.getKeyCode()==(KeyEvent.VK_ENTER))
 				{
-					controlleur.demandeRecherche(texteRecherche);
+					controlleur.rafraichirRecherche();
 				}
 
 				if(timer!=null)
@@ -250,7 +250,7 @@ public class RechercheVue extends JPanel implements Observer {
 				taskChercher = new TimerTask() {
 					public void run()
 					{
-						controlleur.demandeRecherche(texteRecherche);
+						controlleur.rafraichirRecherche();
 					}
 				};
 				timer.schedule(taskChercher, 200);			

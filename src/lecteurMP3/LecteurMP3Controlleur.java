@@ -1,13 +1,10 @@
 package lecteurMP3;
 
-import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.LillePlayer;
 import core.Musique;
 
 
 /**Controlleur qui permet de gerer les evenements liés au panel du lecteur de MP3.
- * @author nath
- *
  */
 public class LecteurMP3Controlleur {
 
@@ -31,10 +28,16 @@ public class LecteurMP3Controlleur {
 		modele.majModele(null);
 	}
 
+	/**Methode qui va permettre de mettre en pause ou lire la musique courante.
+	 * @throws Exception
+	 */
 	public void playPauseControlleur() throws Exception {
 		modele.playPause();
 	}
 	
+	/**Methode qui permet de modifier la position actuelle de la musique.
+	 * @param positionPiste la position de la piste.
+	 */
 	public void setPosition(int positionPiste){
 		modele.setPosition(positionPiste);
 	}
@@ -64,11 +67,17 @@ public class LecteurMP3Controlleur {
 		modele.setVolume(volume);
 	}
 	
+	/**Methode qui va passer la chanson suivante de la playlist.
+	 * @throws Exception
+	 */
 	public void chansonSuivante() throws Exception
 	{
 		modele.passerChansonSuivante();
 	}
 	
+	/**Methode qui va permettre de passer à la musique precedente dans la liste de lecture.
+	 * @throws Exception
+	 */
 	public void chansonPrecedente() throws Exception
 	{
 		modele.passerChansonPrecedente();

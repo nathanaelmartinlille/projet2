@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class MusiqueUtils {
 
-	/**
-	 * @param path
-	 * @return
+	/**Methode qui va recuperer la liste des fichiers MP3 du dossier mis en parametre.
+	 * @param path l'emplacement des fichiers mp3
+	 * @return la liste des fichiers mp3 de l'emplacement mis en parametre
 	 */
 	public static List<File> recupererMusique(String path){
 		File[] listFiles;
@@ -27,6 +27,9 @@ public class MusiqueUtils {
 		return fichierTrouves; 
 	}
 
+	/**Main qui va servir à tester le fonctionnement de la recuperation d'une musique.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		List<File> recupererMusique = recupererMusique(Constantes.CHEMIN_MUSIQUE);
 		for (File file : recupererMusique) {
